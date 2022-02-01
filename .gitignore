@@ -22,7 +22,19 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-# My rules
+# my rules
 *.sh
 *.ps1
 *.bat
+*.exe
+.DS_Store
+contatos2022.json
+contatos2022.sqlite
+get_film.plpgsql
+popularTabelas.sql
+popularTabelas1.sql
+popularTabelas2.sql
+popularTabelas3.sql
+ReadMeGit.txt
+target
+tela.java

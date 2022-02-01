@@ -1118,7 +1118,11 @@ public class ListaContatos extends javax.swing.JFrame {
     private void loadContato() {
         for (Contato contato
                 : ContatoCtrl.carregaContato(
-                        StrNormalize.removeAcentos1(lstContatos.getSelectedValue())
+                        StrNormalize.removeAcentos1(
+                                (lstContatos.getSelectedIndex() == -1
+                                ? ""
+                                : lstContatos.getSelectedValue())
+                        )
                                 .toLowerCase()
                 )) {
             edtNome.setText(contato.getNome());

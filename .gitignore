@@ -24,3 +24,5 @@ hs_err_pid*
 
 # My rules
 *.sh
+*.ps1
+*.bat

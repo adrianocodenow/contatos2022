@@ -533,6 +533,8 @@ public class ListaContatos extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         limpaCampos();
+        btnOK.setEnabled(true);
+        btnCancel.setEnabled(true);
         comando = "INSERT";
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -1335,7 +1337,9 @@ public class ListaContatos extends javax.swing.JFrame {
     }
 
     private void atualizaBotao() {
-        if (!lstContatos.getSelectedValue().equals(edtNome.getText() + " " + edtSobrenome.getText())) {
+        if ((lstContatos.getSelectedIndex() == -1
+                ? false
+                : !lstContatos.getSelectedValue().equals(edtNome.getText() + " " + edtSobrenome.getText()))) {
             if (!edtNome.getText().isEmpty() || !edtSobrenome.getText().isEmpty()) {
                 if (comando.equals("")) {
                     comando = "UPDATE";

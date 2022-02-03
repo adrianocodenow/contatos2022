@@ -1,5 +1,6 @@
 package com.adrianocodenow.contatos2022.factory;
 
+import com.adrianocodenow.contatos2022.dao.CriaTabelas;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

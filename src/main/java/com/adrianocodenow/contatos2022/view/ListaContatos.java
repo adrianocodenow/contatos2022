@@ -4,6 +4,7 @@ import com.adrianocodenow.contatos2022.controller.ContatoCtrl;
 import com.adrianocodenow.contatos2022.controller.StrNormalize;
 import com.adrianocodenow.contatos2022.controller.TelefoneCtrl;
 import com.adrianocodenow.contatos2022.controller.TipoTelefoneCtrl;
+import com.adrianocodenow.contatos2022.dao.CriaTabelas;
 import com.adrianocodenow.contatos2022.dao.EnderecoDao;
 import com.adrianocodenow.contatos2022.dao.TelefoneDao;
 import com.adrianocodenow.contatos2022.dao.TipoEnderecoDao;
@@ -26,6 +27,8 @@ public class ListaContatos extends javax.swing.JFrame {
      * Creates new form ListaContatos
      */
     public ListaContatos() {
+        CriaTabelas.criaBancoDeDados();
+
         initComponents();
         lblMensagem.setText("");
         loadList2();

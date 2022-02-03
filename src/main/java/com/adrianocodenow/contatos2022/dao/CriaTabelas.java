@@ -8,8 +8,12 @@ import com.adrianocodenow.contatos2022.model.Telefone;
 import com.adrianocodenow.contatos2022.model.TipoEndereco;
 import com.adrianocodenow.contatos2022.model.TipoTelefone;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -67,12 +71,58 @@ public class CriaTabelas {
         criaTabela("tipoTelefones", TipoTelefone.getTabela());
     }
 
-    public static void main(String[] args) {
-        criaTabelaContatos();
-        criaTabelaEnderecos();
-        criaTabelaTelefones();
-        criaTabelaTipoEnderecos();
-        criaTabelaTipoTelefones();
+    public static void criaBancoDeDados() {
 
+        List<String> tabelas = checkDB();
+        if (tabelas.isEmpty() || tabelas.size() < 5) {
+            criaTabelaContatos();
+            criaTabelaEnderecos();
+            criaTabelaTelefones();
+            criaTabelaTipoEnderecos();
+            criaTabelaTipoTelefones();
+        }
+    }
+
+    public static List<String> checkDB() {
+        String sql
+                = "SELECT name FROM sqlite_master";
+        List<String> tabelas = new ArrayList<String>();
+
+        Connection db = null;
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+
+        try {
+            db = ConnectionFactory.abre(Config.BANCO_DE_DADOS);
+            if (db != null) {
+                stmt = db.prepareStatement(sql);
+                resultado = stmt.executeQuery();
+                while (resultado.next()) {
+                    tabelas.add(resultado.getString("name"));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ContatosDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (resultado != null) {
+                    resultado.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                ConnectionFactory.fecha(db);
+            } catch (SQLException e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            }
+        }
+        return tabelas;
+    }
+
+    public static void main(String[] args) {
+
+        criaBancoDeDados();
     }
 }

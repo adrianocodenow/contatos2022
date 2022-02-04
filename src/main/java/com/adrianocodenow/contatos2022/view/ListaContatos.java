@@ -31,6 +31,7 @@ public class ListaContatos extends javax.swing.JFrame {
 
         initComponents();
         lblMensagem.setText("");
+        limpaTodosCampos();
         loadList2();
     }
 
@@ -85,6 +86,7 @@ public class ListaContatos extends javax.swing.JFrame {
         scrpTelefones = new javax.swing.JScrollPane();
         lstTelefones = new javax.swing.JList<>();
         edtTipoTelefone = new javax.swing.JTextField();
+        edtTelefone = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         lblAddTipoTelefone = new javax.swing.JLabel();
         lblDelTipoTelefone = new javax.swing.JLabel();
@@ -440,6 +442,10 @@ public class ListaContatos extends javax.swing.JFrame {
         edtTipoTelefone.setText("jTextField1");
         getContentPane().add(edtTipoTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 510, 340, -1));
 
+        edtTelefone.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        edtTelefone.setText("jTextField1");
+        getContentPane().add(edtTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(651, 510, 351, -1));
+
         jLabel12.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel12.setText("Tipos de Telefones");
         getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 490, -1, -1));
@@ -535,7 +541,7 @@ public class ListaContatos extends javax.swing.JFrame {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        limpaCampos();
+        limpaCamposContatos();
         btnOK.setEnabled(true);
         btnCancel.setEnabled(true);
         comando = "INSERT";
@@ -856,6 +862,7 @@ public class ListaContatos extends javax.swing.JFrame {
     private javax.swing.JTextField edtNome;
     private javax.swing.JTextField edtPais;
     private javax.swing.JTextField edtSobrenome;
+    private javax.swing.JTextField edtTelefone;
     private javax.swing.JTextField edtTipoEndereco;
     private javax.swing.JTextField edtTipoTelefone;
     private javax.swing.JLabel jLabel1;
@@ -970,18 +977,7 @@ public class ListaContatos extends javax.swing.JFrame {
             edtCEP.setText(endereco.getCep());
             objEndereco = endereco;
         } else {
-            lstEnderecos.setModel(new javax.swing.AbstractListModel<String>() {
-                String[] strings = {};
-
-                public int getSize() {
-                    return strings.length;
-                }
-
-                public String getElementAt(int i) {
-                    return strings[i];
-                }
-            });
-
+            loadListaTipoEndereco();
         }
     }
 
@@ -1139,12 +1135,6 @@ public class ListaContatos extends javax.swing.JFrame {
             telefonesIndice.clear();
             tipoTelefonesIndice.clear();
             for (Endereco endereco : ContatoCtrl.pesquisaEnderecoIdContato(contato.getIdContato())) {
-//                edtEndereco.setText(endereco.getEndereco());
-//                edtBairro.setText(endereco.getBairro());
-//                edtCidade.setText(endereco.getCidade());
-//                edtEstado.setText(endereco.getEstado());
-//                edtPais.setText(endereco.getPais());
-//                edtCEP.setText(endereco.getCep());
                 enderecosIndice.add(endereco.getIdEndereco());
                 tipoEnderecosIndice.add(endereco.getIdTipoEndereco());
                 temEndereco = true;
@@ -1167,17 +1157,74 @@ public class ListaContatos extends javax.swing.JFrame {
         }
     }
 
-    private void limpaCampos() {
+    private void limpaCamposContatos() {
 
         edtNome.setText("");
         edtSobrenome.setText("");
+    }
+
+    private void limpaTodosCampos() {
+        limpaCamposContatos();
+        edtBairro.setText("");
+        edtCEP.setText("");
+        edtCidade.setText("");
+        edtEndereco.setText("");
+        edtEstado.setText("");
+        edtPais.setText("");
+        edtTelefone.setText("");
+        edtTipoEndereco.setText("");
+        edtTipoTelefone.setText("");
+        lstContatos.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = {};
+
+            public int getSize() {
+                return strings.length;
+            }
+
+            public String getElementAt(int i) {
+                return strings[i];
+            }
+        });
+        lstEnderecos.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = {};
+
+            public int getSize() {
+                return strings.length;
+            }
+
+            public String getElementAt(int i) {
+                return strings[i];
+            }
+        });
+        lstTelefones.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = {};
+
+            public int getSize() {
+                return strings.length;
+            }
+
+            public String getElementAt(int i) {
+                return strings[i];
+            }
+        });
+        lstTiposTelefones.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = {};
+
+            public int getSize() {
+                return strings.length;
+            }
+
+            public String getElementAt(int i) {
+                return strings[i];
+            }
+        });
     }
 
     private void insereContato() {
         if (comando.equals("INSERT")) {
             if (!edtNome.getText().isEmpty() || !edtSobrenome.getText().isEmpty()) {
                 ContatoCtrl.insere(edtNome.getText(), edtSobrenome.getText());
-                limpaCampos();
+                limpaCamposContatos();
                 loadList2();
                 comando = "";
             }
@@ -1192,7 +1239,7 @@ public class ListaContatos extends javax.swing.JFrame {
                     contatosIndice.get(lstContatos.getSelectedIndex()),
                     edtNome.getText(),
                     edtSobrenome.getText());
-            limpaCampos();
+            limpaCamposContatos();
             loadList2();
             btnOK.setEnabled(false);
             btnCancel.setEnabled(false);
@@ -1206,7 +1253,7 @@ public class ListaContatos extends javax.swing.JFrame {
                     lstContatos.getSelectedValue(),
                     edtNome.getText(),
                     edtSobrenome.getText());
-            limpaCampos();
+            limpaCamposContatos();
             loadList2();
             btnOK.setEnabled(false);
             btnCancel.setEnabled(false);
@@ -1217,7 +1264,7 @@ public class ListaContatos extends javax.swing.JFrame {
     private void deletaContato() {
         if (!edtNome.getText().isEmpty() || !edtSobrenome.getText().isEmpty()) {
             ContatoCtrl.deleta(contatosIndice.get(lstContatos.getSelectedIndex()));
-            limpaCampos();
+            limpaCamposContatos();
             loadList2();
             btnOK.setEnabled(false);
             btnCancel.setEnabled(false);

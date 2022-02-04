@@ -74,12 +74,20 @@ public class CriaTabelas {
     public static void criaBancoDeDados() {
 
         List<String> tabelas = checkDB();
+
         if (tabelas.isEmpty() || tabelas.size() < 5) {
             criaTabelaContatos();
             criaTabelaEnderecos();
             criaTabelaTelefones();
             criaTabelaTipoEnderecos();
             criaTabelaTipoTelefones();
+        }
+        if (TipoEnderecoDao.lista().isEmpty()) {
+            TipoEndereco tipoEndereco = new TipoEndereco();
+            tipoEndereco.setTipoEndereco("Residência X");
+            TipoEnderecoDao.insere(tipoEndereco);
+            tipoEndereco.setTipoEndereco("Trabalho Y");
+            TipoEnderecoDao.insere(tipoEndereco);
         }
     }
 

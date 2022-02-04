@@ -33,6 +33,9 @@ public class ListaContatos extends javax.swing.JFrame {
         lblMensagem.setText("");
         limpaTodosCampos();
         loadList2();
+        if (lstContatos.getSelectedIndex() == -1) {
+            loadListaTipoEndereco();
+        }
     }
 
     /**
@@ -1344,6 +1347,7 @@ public class ListaContatos extends javax.swing.JFrame {
         btnOK.setEnabled(false);
         btnCancel.setEnabled(false);
         comando = "";
+        loadListaTipoEndereco();
     }
 
     private void deletaTipoEndereco() {

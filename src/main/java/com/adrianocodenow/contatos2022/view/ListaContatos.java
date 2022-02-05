@@ -37,6 +37,7 @@ public class ListaContatos extends javax.swing.JFrame {
         loadList2();
         if (lstContatos.getSelectedIndex() == -1) {
             loadListaTipoEndereco();
+            loadListaTipoTelefone();
         }
     }
 
@@ -709,6 +710,8 @@ public class ListaContatos extends javax.swing.JFrame {
             lblMensagem.setText("Selecione o Tipo de Endereco, para deletar!");
             comando = "DELETEADDRESSTYPE";
             atualizaBotao();
+            lstTipoEnderecos.requestFocus();
+
         }
 
     }//GEN-LAST:event_lblDelTipoEnderecoMouseReleased
@@ -732,6 +735,8 @@ public class ListaContatos extends javax.swing.JFrame {
         if (comando.equals("")) {
             comando = "INSERTADDRESSTYPE";
             edtTipoEndereco.setText("");
+            edtTipoEndereco.setEnabled(true);
+            edtTipoEndereco.requestFocus();
             scrpTipoEnderecos.setSize(340, 272);
             scrpTipoEnderecos.setLocation(300, 200);
             btnOK.setEnabled(true);
@@ -912,6 +917,7 @@ public class ListaContatos extends javax.swing.JFrame {
     private static List<Integer> tipoEnderecosIndice = new ArrayList<>();
     private static List<Integer> telefonesIndice = new ArrayList<>();
     private static List<Integer> tipoTelefonesIndice = new ArrayList<>();
+    private static boolean temContato = false;
     private static boolean temEndereco = false;
     private static boolean temTelefone = false;
     private static Endereco objEndereco = new Endereco();
@@ -936,10 +942,12 @@ public class ListaContatos extends javax.swing.JFrame {
         ArrayList<String> nomesSobrenomes = new ArrayList<String>();
         contatosIndice.clear();
         int count = 0;
+        temContato = false;
         for (Contato contato : ContatoCtrl.pesquisaObj()) {
             nomesSobrenomes.add(contato.getNome() + " " + contato.getSobrenome());
             contatosIndice.add(contato.getIdContato());
             count++;
+            temContato = true;
         }
         String[] retorno = nomesSobrenomes.toArray(new String[nomesSobrenomes.size()]);
         return retorno;
@@ -1039,7 +1047,7 @@ public class ListaContatos extends javax.swing.JFrame {
                     return strings[i];
                 }
             });
-
+            loadListaTipoTelefone();
         }
     }
 
@@ -1137,6 +1145,7 @@ public class ListaContatos extends javax.swing.JFrame {
             ativaNomeSobrenome();
             edtNome.setText(contato.getNome());
             edtSobrenome.setText(contato.getSobrenome());
+            temContato = true;
             temEndereco = false;
             temTelefone = false;
             enderecosIndice.clear();
@@ -1169,6 +1178,11 @@ public class ListaContatos extends javax.swing.JFrame {
             }
             loadListEndereco();
             loadListTelefone();
+        }
+        if (!temContato) {
+            desativaCampos();
+            loadListaTipoEndereco();
+            loadListaTipoTelefone();
         }
     }
 
@@ -1224,9 +1238,9 @@ public class ListaContatos extends javax.swing.JFrame {
         edtTelefone.setEnabled(false);
         edtTipoEndereco.setEnabled(false);
         edtTipoTelefone.setEnabled(false);
-        lstTipoEnderecos.setEnabled(false);
+//        lstTipoEnderecos.setEnabled(false);
         lstTelefones.setEnabled(false);
-        lstTiposTelefones.setEnabled(false);
+//        lstTiposTelefones.setEnabled(false);
     }
 
     private void desativaNomeSobrenome() {
@@ -1245,7 +1259,7 @@ public class ListaContatos extends javax.swing.JFrame {
 
     private void desativaTelefone() {
         edtTelefone.setEnabled(false);
-        edtTipoTelefone.setEnabled(false);
+//        edtTipoTelefone.setEnabled(false);
         lstTelefones.setEnabled(false);
     }
 
@@ -1316,12 +1330,13 @@ public class ListaContatos extends javax.swing.JFrame {
         if (comando.equals("INSERT")) {
             if (!edtNome.getText().isEmpty() || !edtSobrenome.getText().isEmpty()) {
                 ContatoCtrl.insere(edtNome.getText(), edtSobrenome.getText());
-                limpaCamposContatos();
-                loadList2();
-                comando = "";
             }
+            limpaCamposContatos();
+            loadList2();
+            comando = "";
             btnOK.setEnabled(false);
             btnCancel.setEnabled(false);
+            lblMensagem.setText("");
         }
     }
 
@@ -1358,9 +1373,10 @@ public class ListaContatos extends javax.swing.JFrame {
             ContatoCtrl.deleta(contatosIndice.get(lstContatos.getSelectedIndex()));
             limpaCamposContatos();
             loadList2();
+            comando = "";
             btnOK.setEnabled(false);
             btnCancel.setEnabled(false);
-            comando = "";
+            lblMensagem.setText("");
         }
     }
 
@@ -1432,14 +1448,17 @@ public class ListaContatos extends javax.swing.JFrame {
             lblMensagem.setText("Tipo de Endereço não cadastrado!");
         }
         scrpTipoEnderecos.setLocation(300, 170);
-        scrpTipoEnderecos.setSize(340, 230);
+        scrpTipoEnderecos.setSize(340, 305);
         btnOK.setEnabled(false);
         btnCancel.setEnabled(false);
         comando = "";
+        edtTipoEndereco.setEnabled(false);
         loadListaTipoEndereco();
     }
 
     private void deletaTipoEndereco() {
+        System.out.println("lstTipoEnderecos.getSelectedIndex() = " + lstTipoEnderecos.getSelectedIndex());
+
         if (!EnderecoDao.buscaIDTipoEndereco(tipoEnderecosIndice.get(lstTipoEnderecos.getSelectedIndex()))) {
             TipoEnderecoDao.deleta((tipoEnderecosIndice.get(lstTipoEnderecos.getSelectedIndex())));
         } else {

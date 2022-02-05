@@ -84,11 +84,21 @@ public class CriaTabelas {
         }
         if (TipoEnderecoDao.lista().isEmpty()) {
             TipoEndereco tipoEndereco = new TipoEndereco();
-            tipoEndereco.setTipoEndereco("Residência X");
+            tipoEndereco.setTipoEndereco("Residência");
             TipoEnderecoDao.insere(tipoEndereco);
-            tipoEndereco.setTipoEndereco("Trabalho Y");
+            tipoEndereco.setTipoEndereco("Trabalho");
             TipoEnderecoDao.insere(tipoEndereco);
         }
+        if (TipoTelefoneDao.lista().isEmpty()) {
+            TipoTelefone tipoTelefone = new TipoTelefone();
+            tipoTelefone.setTipoTelefone("Celular");
+            TipoTelefoneDao.insere(tipoTelefone);
+            tipoTelefone.setTipoTelefone("Residência");
+            TipoTelefoneDao.insere(tipoTelefone);
+            tipoTelefone.setTipoTelefone("Trabalho");
+            TipoTelefoneDao.insere(tipoTelefone);
+        }
+
     }
 
     public static List<String> checkDB() {

@@ -14,6 +14,7 @@ import com.adrianocodenow.contatos2022.model.Endereco;
 import com.adrianocodenow.contatos2022.model.Telefone;
 import com.adrianocodenow.contatos2022.model.TipoEndereco;
 import com.adrianocodenow.contatos2022.model.TipoTelefone;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,7 @@ public class ListaContatos extends javax.swing.JFrame {
 
         initComponents();
         lblMensagem.setText("");
+        desativaCampos();
         limpaTodosCampos();
         loadList2();
         if (lstContatos.getSelectedIndex() == -1) {
@@ -71,8 +73,8 @@ public class ListaContatos extends javax.swing.JFrame {
         edtCidade = new javax.swing.JTextField();
         edtEstado = new javax.swing.JTextField();
         edtPais = new javax.swing.JTextField();
-        scrpEnderecos = new javax.swing.JScrollPane();
-        lstEnderecos = new javax.swing.JList<>();
+        scrpTipoEnderecos = new javax.swing.JScrollPane();
+        lstTipoEnderecos = new javax.swing.JList<>();
         edtTipoEndereco = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -294,35 +296,35 @@ public class ListaContatos extends javax.swing.JFrame {
         });
         getContentPane().add(edtPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(651, 390, 351, 30));
 
-        scrpEnderecos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        scrpTipoEnderecos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
-        lstEnderecos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lstEnderecos.setModel(new javax.swing.AbstractListModel<String>() {
+        lstTipoEnderecos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lstTipoEnderecos.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        lstEnderecos.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+        lstTipoEnderecos.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
-                lstEnderecosMouseDragged(evt);
+                lstTipoEnderecosMouseDragged(evt);
             }
         });
-        lstEnderecos.addMouseListener(new java.awt.event.MouseAdapter() {
+        lstTipoEnderecos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lstEnderecosMouseClicked(evt);
+                lstTipoEnderecosMouseClicked(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                lstEnderecosMouseReleased(evt);
+                lstTipoEnderecosMouseReleased(evt);
             }
         });
-        lstEnderecos.addKeyListener(new java.awt.event.KeyAdapter() {
+        lstTipoEnderecos.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                lstEnderecosKeyReleased(evt);
+                lstTipoEnderecosKeyReleased(evt);
             }
         });
-        scrpEnderecos.setViewportView(lstEnderecos);
+        scrpTipoEnderecos.setViewportView(lstTipoEnderecos);
 
-        getContentPane().add(scrpEnderecos, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 170, 340, 305));
+        getContentPane().add(scrpTipoEnderecos, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 170, 340, 305));
 
         edtTipoEndereco.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         edtTipoEndereco.setText("jTextField1");
@@ -545,6 +547,9 @@ public class ListaContatos extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         limpaCamposContatos();
+        edtNome.setEnabled(true);
+        edtNome.requestFocus();
+        edtSobrenome.setEnabled(true);
         btnOK.setEnabled(true);
         btnCancel.setEnabled(true);
         comando = "INSERT";
@@ -619,32 +624,32 @@ public class ListaContatos extends javax.swing.JFrame {
         comando = "";
         lblMensagem.setText("");
         loadContato();
-        scrpEnderecos.setLocation(300, 170);
-        scrpEnderecos.setSize(340, 305);
+        scrpTipoEnderecos.setLocation(300, 170);
+        scrpTipoEnderecos.setSize(340, 305);
         scrpTiposTelefones.setLocation(300, 510);
         scrpTiposTelefones.setSize(340, 210);
 
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    private void lstEnderecosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstEnderecosKeyReleased
+    private void lstTipoEnderecosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstTipoEnderecosKeyReleased
         // TODO add your handling code here:
         loadEndereco();
-    }//GEN-LAST:event_lstEnderecosKeyReleased
+    }//GEN-LAST:event_lstTipoEnderecosKeyReleased
 
-    private void lstEnderecosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstEnderecosMouseClicked
+    private void lstTipoEnderecosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTipoEnderecosMouseClicked
         // TODO add your handling code here:
         loadEndereco();
-    }//GEN-LAST:event_lstEnderecosMouseClicked
+    }//GEN-LAST:event_lstTipoEnderecosMouseClicked
 
-    private void lstEnderecosMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstEnderecosMouseDragged
+    private void lstTipoEnderecosMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTipoEnderecosMouseDragged
         // TODO add your handling code here:
         loadEndereco();
-    }//GEN-LAST:event_lstEnderecosMouseDragged
+    }//GEN-LAST:event_lstTipoEnderecosMouseDragged
 
-    private void lstEnderecosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstEnderecosMouseReleased
+    private void lstTipoEnderecosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTipoEnderecosMouseReleased
         // TODO add your handling code here:
         loadEndereco();
-    }//GEN-LAST:event_lstEnderecosMouseReleased
+    }//GEN-LAST:event_lstTipoEnderecosMouseReleased
 
     private void btnAddAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAddressActionPerformed
         // TODO add your handling code here:
@@ -655,7 +660,7 @@ public class ListaContatos extends javax.swing.JFrame {
         edtEstado.setText("");
         edtPais.setText("");
         edtCEP.setText("");
-        lstEnderecos.clearSelection();
+        lstTipoEnderecos.clearSelection();
         loadListaTipoEndereco();
     }//GEN-LAST:event_btnAddAddressActionPerformed
 
@@ -711,7 +716,7 @@ public class ListaContatos extends javax.swing.JFrame {
     private void lblEditTipoEnderecoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditTipoEnderecoMouseReleased
         // TODO add your handling code here:
         if (comando.equals("")) {
-            if (lstEnderecos.getSelectedIndex() != -1) {
+            if (lstTipoEnderecos.getSelectedIndex() != -1) {
                 loadListaTipoEndereco();
                 comando = "UPDATEADDRESSTYPE";
                 atualizaBotao();
@@ -727,8 +732,8 @@ public class ListaContatos extends javax.swing.JFrame {
         if (comando.equals("")) {
             comando = "INSERTADDRESSTYPE";
             edtTipoEndereco.setText("");
-            scrpEnderecos.setSize(340, 272);
-            scrpEnderecos.setLocation(300, 200);
+            scrpTipoEnderecos.setSize(340, 272);
+            scrpTipoEnderecos.setLocation(300, 200);
             btnOK.setEnabled(true);
             btnCancel.setEnabled(true);
         }
@@ -893,11 +898,11 @@ public class ListaContatos extends javax.swing.JFrame {
     private javax.swing.JLabel lblEditTipoTelefone;
     private javax.swing.JLabel lblMensagem;
     private javax.swing.JList<String> lstContatos;
-    private javax.swing.JList<String> lstEnderecos;
     private javax.swing.JList<String> lstTelefones;
+    private javax.swing.JList<String> lstTipoEnderecos;
     private javax.swing.JList<String> lstTiposTelefones;
-    private javax.swing.JScrollPane scrpEnderecos;
     private javax.swing.JScrollPane scrpTelefones;
+    private javax.swing.JScrollPane scrpTipoEnderecos;
     private javax.swing.JScrollPane scrpTiposTelefones;
     // End of variables declaration//GEN-END:variables
 
@@ -958,7 +963,7 @@ public class ListaContatos extends javax.swing.JFrame {
 
     private void loadListEndereco() {
         if (temEndereco) {
-            lstEnderecos.setModel(new javax.swing.AbstractListModel<String>() {
+            lstTipoEnderecos.setModel(new javax.swing.AbstractListModel<String>() {
                 String[] strings = ContatoCtrl.pesquisaTipoEndereco(tipoEnderecosIndice);
 
                 public int getSize() {
@@ -969,7 +974,7 @@ public class ListaContatos extends javax.swing.JFrame {
                     return strings[i];
                 }
             });
-            lstEnderecos.setSelectedIndex(0);
+            lstTipoEnderecos.setSelectedIndex(0);
             Endereco endereco = new Endereco();
             endereco = EnderecoDao.buscaID(enderecosIndice.get(0));
             edtEndereco.setText(endereco.getEndereco());
@@ -1081,7 +1086,7 @@ public class ListaContatos extends javax.swing.JFrame {
     }
 
     private void loadListaTipoEndereco() {
-        lstEnderecos.setModel(new javax.swing.AbstractListModel<String>() {
+        lstTipoEnderecos.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = novaListaTipoEndereco();
 
             public int getSize() {
@@ -1095,7 +1100,7 @@ public class ListaContatos extends javax.swing.JFrame {
     }
 
     private void loadEndereco() {
-        if (lstEnderecos.getSelectedIndex() != -1) {
+        if (lstTipoEnderecos.getSelectedIndex() != -1) {
             lblMensagem.setText("");
         }
         if (temEndereco
@@ -1104,7 +1109,7 @@ public class ListaContatos extends javax.swing.JFrame {
                 && !comando.equals("UPDATEADDRESSTYPE")) {
             Endereco endereco = new Endereco();
             try {
-                endereco = EnderecoDao.buscaID(enderecosIndice.get(lstEnderecos.getSelectedIndex()));
+                endereco = EnderecoDao.buscaID(enderecosIndice.get(lstTipoEnderecos.getSelectedIndex()));
 
             } catch (Exception e) {
                 System.out.println("Parei");
@@ -1129,6 +1134,7 @@ public class ListaContatos extends javax.swing.JFrame {
                         )
                                 .toLowerCase()
                 )) {
+            ativaNomeSobrenome();
             edtNome.setText(contato.getNome());
             edtSobrenome.setText(contato.getSobrenome());
             temEndereco = false;
@@ -1141,8 +1147,10 @@ public class ListaContatos extends javax.swing.JFrame {
                 enderecosIndice.add(endereco.getIdEndereco());
                 tipoEnderecosIndice.add(endereco.getIdTipoEndereco());
                 temEndereco = true;
+                ativaEndereco();
             }
             if (!temEndereco) {
+                desativaEndereco();
                 edtEndereco.setText("");
                 edtBairro.setText("");
                 edtCidade.setText("");
@@ -1154,10 +1162,91 @@ public class ListaContatos extends javax.swing.JFrame {
                 telefonesIndice.add(telefone.getIdTelefone());
                 tipoTelefonesIndice.add(telefone.getIdTipoTelefone());
                 temTelefone = true;
+                ativaTelefone();
+            }
+            if (!temTelefone) {
+                desativaTelefone();
             }
             loadListEndereco();
             loadListTelefone();
         }
+    }
+
+    private void ativaCampos() {
+        edtNome.setEnabled(true);
+        edtSobrenome.setEnabled(true);
+        edtBairro.setEnabled(true);
+        edtCEP.setEnabled(true);
+        edtCidade.setEnabled(true);
+        edtEndereco.setEnabled(true);
+        edtEstado.setEnabled(true);
+        edtPais.setEnabled(true);
+        edtTelefone.setEnabled(true);
+        edtTipoEndereco.setEnabled(true);
+        edtTipoTelefone.setEnabled(true);
+        lstTipoEnderecos.setEnabled(true);
+        lstTelefones.setEnabled(true);
+        lstTiposTelefones.setEnabled(true);
+    }
+
+    private void ativaNomeSobrenome() {
+        edtNome.setEnabled(true);
+        edtSobrenome.setEnabled(true);
+    }
+
+    private void ativaEndereco() {
+        edtBairro.setEnabled(true);
+        edtCEP.setEnabled(true);
+        edtCidade.setEnabled(true);
+        edtEndereco.setEnabled(true);
+        edtEstado.setEnabled(true);
+        edtPais.setEnabled(true);
+        edtTipoEndereco.setEnabled(true);
+        lstTipoEnderecos.setEnabled(true);
+    }
+
+    private void ativaTelefone() {
+        edtTelefone.setEnabled(true);
+        edtTipoTelefone.setEnabled(true);
+        lstTelefones.setEnabled(true);
+        lstTiposTelefones.setEnabled(true);
+    }
+
+    private void desativaCampos() {
+        edtNome.setEnabled(false);
+        edtSobrenome.setEnabled(false);
+        edtBairro.setEnabled(false);
+        edtCEP.setEnabled(false);
+        edtCidade.setEnabled(false);
+        edtEndereco.setEnabled(false);
+        edtEstado.setEnabled(false);
+        edtPais.setEnabled(false);
+        edtTelefone.setEnabled(false);
+        edtTipoEndereco.setEnabled(false);
+        edtTipoTelefone.setEnabled(false);
+        lstTipoEnderecos.setEnabled(false);
+        lstTelefones.setEnabled(false);
+        lstTiposTelefones.setEnabled(false);
+    }
+
+    private void desativaNomeSobrenome() {
+        edtNome.setEnabled(false);
+        edtSobrenome.setEnabled(false);
+    }
+
+    private void desativaEndereco() {
+        edtBairro.setEnabled(false);
+        edtCEP.setEnabled(false);
+        edtCidade.setEnabled(false);
+        edtEndereco.setEnabled(false);
+        edtEstado.setEnabled(false);
+        edtPais.setEnabled(false);
+    }
+
+    private void desativaTelefone() {
+        edtTelefone.setEnabled(false);
+        edtTipoTelefone.setEnabled(false);
+        lstTelefones.setEnabled(false);
     }
 
     private void limpaCamposContatos() {
@@ -1188,7 +1277,7 @@ public class ListaContatos extends javax.swing.JFrame {
                 return strings[i];
             }
         });
-        lstEnderecos.setModel(new javax.swing.AbstractListModel<String>() {
+        lstTipoEnderecos.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = {};
 
             public int getSize() {
@@ -1276,7 +1365,7 @@ public class ListaContatos extends javax.swing.JFrame {
     }
 
     private void insereEndereco() {
-        if (comando.equals("INSERTADDRESS") && lstEnderecos.getSelectedIndex() != -1) {
+        if (comando.equals("INSERTADDRESS") && lstTipoEnderecos.getSelectedIndex() != -1) {
             if (!edtEndereco.getText().isEmpty()) {
                 Endereco endereco = new Endereco();
                 endereco.setEndereco(edtEndereco.getText());
@@ -1286,14 +1375,14 @@ public class ListaContatos extends javax.swing.JFrame {
                 endereco.setCep(edtCEP.getText());
                 endereco.setPais(edtPais.getText());
                 endereco.setIdContato(contatosIndice.get(lstContatos.getSelectedIndex()));
-                endereco.setIdTipoEndereco(tipoEnderecosIndice.get(lstEnderecos.getSelectedIndex()));
+                endereco.setIdTipoEndereco(tipoEnderecosIndice.get(lstTipoEnderecos.getSelectedIndex()));
                 EnderecoDao.insere(endereco);
                 comando = "";
                 btnOK.setEnabled(false);
                 btnCancel.setEnabled(false);
                 loadContato();
             }
-        } else if (lstEnderecos.getSelectedIndex() == -1) {
+        } else if (lstTipoEnderecos.getSelectedIndex() == -1) {
             lblMensagem.setText("Selecione um tipo de endereço.");
         }
 
@@ -1301,7 +1390,7 @@ public class ListaContatos extends javax.swing.JFrame {
 
     private void deletaEndereco() {
         boolean retorno;
-        retorno = EnderecoDao.deleta(enderecosIndice.get(lstEnderecos.getSelectedIndex()));
+        retorno = EnderecoDao.deleta(enderecosIndice.get(lstTipoEnderecos.getSelectedIndex()));
         loadContato();
         lblMensagem.setText("");
         btnOK.setEnabled(false);
@@ -1321,7 +1410,7 @@ public class ListaContatos extends javax.swing.JFrame {
                 endereco.setCep(edtCEP.getText());
                 endereco.setPais(edtPais.getText());
                 endereco.setIdContato(contatosIndice.get(lstContatos.getSelectedIndex()));
-                endereco.setIdTipoEndereco(tipoEnderecosIndice.get(lstEnderecos.getSelectedIndex()));
+                endereco.setIdTipoEndereco(tipoEnderecosIndice.get(lstTipoEnderecos.getSelectedIndex()));
                 EnderecoDao.altera(endereco);
                 comando = "";
                 btnOK.setEnabled(false);
@@ -1342,8 +1431,8 @@ public class ListaContatos extends javax.swing.JFrame {
         if (!TipoEnderecoDao.insere(tipoEndereco)) {
             lblMensagem.setText("Tipo de Endereço não cadastrado!");
         }
-        scrpEnderecos.setLocation(300, 170);
-        scrpEnderecos.setSize(340, 230);
+        scrpTipoEnderecos.setLocation(300, 170);
+        scrpTipoEnderecos.setSize(340, 230);
         btnOK.setEnabled(false);
         btnCancel.setEnabled(false);
         comando = "";
@@ -1351,8 +1440,8 @@ public class ListaContatos extends javax.swing.JFrame {
     }
 
     private void deletaTipoEndereco() {
-        if (!EnderecoDao.buscaIDTipoEndereco(tipoEnderecosIndice.get(lstEnderecos.getSelectedIndex()))) {
-            TipoEnderecoDao.deleta((tipoEnderecosIndice.get(lstEnderecos.getSelectedIndex())));
+        if (!EnderecoDao.buscaIDTipoEndereco(tipoEnderecosIndice.get(lstTipoEnderecos.getSelectedIndex()))) {
+            TipoEnderecoDao.deleta((tipoEnderecosIndice.get(lstTipoEnderecos.getSelectedIndex())));
         } else {
             lblMensagem.setText("Tipo de Endereço em uso, não pode ser deletado!");
         }

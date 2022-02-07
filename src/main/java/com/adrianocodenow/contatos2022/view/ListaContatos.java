@@ -37,7 +37,7 @@ public class ListaContatos extends javax.swing.JFrame {
         loadList2();
         if (lstContatos.getSelectedIndex() == -1) {
             loadListaTiposEnderecos();
-            loadListaTipoTelefone();
+            loadListaTiposTelefones();
         }
     }
 
@@ -625,6 +625,7 @@ public class ListaContatos extends javax.swing.JFrame {
         comando = "";
         lblMensagem.setText("");
         indexTiposEnderecos = -1;
+        indexTiposTelefones = -1;
         loadContato();
         scrpTiposEnderecos.setLocation(300, 170);
         scrpTiposEnderecos.setSize(340, 305);
@@ -752,8 +753,11 @@ public class ListaContatos extends javax.swing.JFrame {
         if (comando.equals("")) {
             comando = "INSERTPHONETYPE";
             edtTipoTelefone.setText("");
+            edtTipoTelefone.setEnabled(true);
+            edtTipoTelefone.requestFocus();
             scrpTiposTelefones.setSize(340, 177);
             scrpTiposTelefones.setLocation(300, 540);
+            loadListaTiposTelefones();
             btnOK.setEnabled(true);
             btnCancel.setEnabled(true);
         }
@@ -762,8 +766,12 @@ public class ListaContatos extends javax.swing.JFrame {
     private void lblDelTipoTelefoneMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDelTipoTelefoneMouseReleased
         // TODO add your handling code here:
         if (comando.equals("")) {
-            loadListaTipoTelefone();
-            lblMensagem.setText("Selecione o Tipo de Telefone, para deletar!");
+            loadListaTiposTelefones();
+            if (indexTiposTelefones != -1) {
+                lstTiposTelefones.setSelectedIndex(indexTiposTelefones);
+            } else {
+                lblMensagem.setText("Selecione o Tipo de Telefone, para deletar!");
+            }
             comando = "DELETEPHONETYPEPHONE";
             atualizaBotao();
         }
@@ -924,6 +932,7 @@ public class ListaContatos extends javax.swing.JFrame {
     private static boolean temEndereco = false;
     private static boolean temTelefone = false;
     private static Integer indexTiposEnderecos = -1;
+    private static Integer indexTiposTelefones = -1;
     private static Endereco objEndereco = new Endereco();
 
     private void loadList() {
@@ -1051,14 +1060,14 @@ public class ListaContatos extends javax.swing.JFrame {
                     return strings[i];
                 }
             });
-            loadListaTipoTelefone();
+            loadListaTiposTelefones();
         }
     }
 
     private void loadTipoTelefonesIndice() {
     }
 
-    private void loadListaTipoTelefone() {
+    private void loadListaTiposTelefones() {
         tiposTelefonesIndice = TipoTelefoneCtrl.indice();
         lstTiposTelefones.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = TipoTelefoneCtrl.lista();
@@ -1189,7 +1198,7 @@ public class ListaContatos extends javax.swing.JFrame {
         if (!temContato) {
             desativaCampos();
             loadListaTiposEnderecos();
-            loadListaTipoTelefone();
+            loadListaTiposTelefones();
         }
     }
 
@@ -1464,16 +1473,18 @@ public class ListaContatos extends javax.swing.JFrame {
     }
 
     private void deletaTipoEndereco() {
-        if (!EnderecoDao.buscaIDTipoEndereco(tiposEnderecosIndice.get(lstTiposEnderecos.getSelectedIndex()))) {
-            TipoEnderecoDao.deleta((tiposEnderecosIndice.get(lstTiposEnderecos.getSelectedIndex())));
-        } else {
-            lblMensagem.setText("Tipo de Endereço em uso, não pode ser deletado!");
+        if (lstTiposEnderecos.getSelectedIndex() != -1) {
+            if (!EnderecoDao.buscaIDTipoEndereco(tiposEnderecosIndice.get(lstTiposEnderecos.getSelectedIndex()))) {
+                TipoEnderecoDao.deleta((tiposEnderecosIndice.get(lstTiposEnderecos.getSelectedIndex())));
+            } else {
+                lblMensagem.setText("Tipo de Endereço em uso, não pode ser deletado!");
+            }
+            comando = "";
+            indexTiposEnderecos = -1;
+            btnOK.setEnabled(false);
+            btnCancel.setEnabled(false);
+            loadContato();
         }
-        comando = "";
-        indexTiposEnderecos = -1;
-        btnOK.setEnabled(false);
-        btnCancel.setEnabled(false);
-        loadContato();
     }
 
     private void insereTipoTelefone() {
@@ -1487,21 +1498,23 @@ public class ListaContatos extends javax.swing.JFrame {
         btnOK.setEnabled(false);
         btnCancel.setEnabled(false);
         comando = "";
+        edtTipoTelefone.setEnabled(false);
+        loadContato();
     }
 
     private void deletaTipoTelefone() {
-        System.out.println("Tipo selecionado = " + lstTiposTelefones.getSelectedIndex());
-
-        if (!TelefoneDao.buscaIDTipoTipo(tiposTelefonesIndice.get(lstTiposTelefones.getSelectedIndex()))) {
-            TipoTelefoneDao.deleta((tiposTelefonesIndice.get(lstTiposTelefones.getSelectedIndex())));
-        } else {
-            lblMensagem.setText("Tipo de Telefone em uso, não pode ser deletado!");
+        if (lstTiposTelefones.getSelectedIndex() != -1) {
+            if (!TelefoneDao.buscaIDTipoTipo(tiposTelefonesIndice.get(lstTiposTelefones.getSelectedIndex()))) {
+                TipoTelefoneDao.deleta((tiposTelefonesIndice.get(lstTiposTelefones.getSelectedIndex())));
+            } else {
+                lblMensagem.setText("Tipo de Telefone em uso, não pode ser deletado!");
+            }
+            comando = "";
+            indexTiposTelefones = -1;
+            btnOK.setEnabled(false);
+            btnCancel.setEnabled(false);
+            loadContato();
         }
-        comando = "";
-        btnOK.setEnabled(false);
-        btnCancel.setEnabled(false);
-        loadContato();
-
     }
 
     private void atualizaBotao() {
@@ -1550,12 +1563,14 @@ public class ListaContatos extends javax.swing.JFrame {
     private void listSyncTipoTelefone() {
         if (comando.equals("")) {
             lstTiposTelefones.setSelectedIndex(lstTelefones.getSelectedIndex());
+            indexTiposTelefones = lstTiposTelefones.getSelectedIndex();
         }
     }
 
     private void listSyncTelefone() {
         if (comando.equals("")) {
             lstTelefones.setSelectedIndex(lstTiposTelefones.getSelectedIndex());
+            indexTiposTelefones = lstTiposTelefones.getSelectedIndex();
         }
     }
 

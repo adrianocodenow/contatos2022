@@ -539,10 +539,7 @@ public class ListaContatos extends javax.swing.JFrame {
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
         // TODO add your handling code here:
-        lblMensagem.setText("Confirma a deleção do contato?");
-        btnOK.setEnabled(true);
-        btnCancel.setEnabled(true);
-        comando = "DELETE";
+        ativaOKCancel("DELETE", "Confirma a deleção do contato?");
     }//GEN-LAST:event_btnDelActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -551,9 +548,7 @@ public class ListaContatos extends javax.swing.JFrame {
         edtNome.setEnabled(true);
         edtNome.requestFocus();
         edtSobrenome.setEnabled(true);
-        btnOK.setEnabled(true);
-        btnCancel.setEnabled(true);
-        comando = "INSERT";
+        ativaOKCancel("INSERT", "");
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
@@ -663,10 +658,7 @@ public class ListaContatos extends javax.swing.JFrame {
 
     private void btnDelAddrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelAddrActionPerformed
         // TODO add your handling code here:
-        lblMensagem.setText("Confirma a deleção do endereco?");
-        btnOK.setEnabled(true);
-        btnCancel.setEnabled(true);
-        comando = "DELETEADDRESS";
+        ativaOKCancel("DELETEADDRESS", "Confirma a deleção do endereco?");
     }//GEN-LAST:event_btnDelAddrActionPerformed
 
     private void edtBairroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtBairroKeyReleased
@@ -700,11 +692,10 @@ public class ListaContatos extends javax.swing.JFrame {
             loadListaTiposEnderecos();
             if (indexTiposEnderecos != -1) {
                 lstTiposEnderecos.setSelectedIndex(indexTiposEnderecos.intValue());
+                ativaOKCancel("DELETEADDRESSTYPE", "");
             } else {
-                lblMensagem.setText("Selecione o Tipo de Endereco, para deletar!");
+                ativaOKCancel("DELETEADDRESSTYPE", "Selecione o Tipo de Endereco, para deletar!");
             }
-            comando = "DELETEADDRESSTYPE";
-            atualizaBotao();
         }
 
     }//GEN-LAST:event_lblDelTipoEnderecoMouseReleased
@@ -714,8 +705,7 @@ public class ListaContatos extends javax.swing.JFrame {
         if (comando.equals("")) {
             if (lstTiposEnderecos.getSelectedIndex() != -1) {
                 loadListaTiposEnderecos();
-                comando = "UPDATEADDRESSTYPE";
-                atualizaBotao();
+                ativaOKCancel("UPDATEADDRESSTYPE", "");
             } else {
                 lblMensagem.setText("Contato não tem endereço!");
             }
@@ -726,29 +716,26 @@ public class ListaContatos extends javax.swing.JFrame {
     private void lblAddTipoEnderecoMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddTipoEnderecoMouseReleased
         // TODO add your handling code here:
         if (comando.equals("")) {
-            comando = "INSERTADDRESSTYPE";
             edtTipoEndereco.setText("");
             edtTipoEndereco.setEnabled(true);
             edtTipoEndereco.requestFocus();
             scrpTiposEnderecos.setSize(340, 272);
             scrpTiposEnderecos.setLocation(300, 200);
-            btnOK.setEnabled(true);
-            btnCancel.setEnabled(true);
+            ativaOKCancel("INSERTADDRESSTYPE", "");
         }
     }//GEN-LAST:event_lblAddTipoEnderecoMouseReleased
 
     private void lblAddTipoTelefoneMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddTipoTelefoneMouseReleased
         // TODO add your handling code here:
         if (comando.equals("")) {
-            comando = "INSERTPHONETYPE";
             edtTipoTelefone.setText("");
             edtTipoTelefone.setEnabled(true);
             edtTipoTelefone.requestFocus();
             scrpTiposTelefones.setSize(340, 177);
             scrpTiposTelefones.setLocation(300, 540);
             loadListaTiposTelefones();
-            btnOK.setEnabled(true);
-            btnCancel.setEnabled(true);
+            ativaOKCancel("INSERTPHONETYPE", "");
+
         }
     }//GEN-LAST:event_lblAddTipoTelefoneMouseReleased
 
@@ -758,11 +745,10 @@ public class ListaContatos extends javax.swing.JFrame {
             loadListaTiposTelefones();
             if (indexTiposTelefones != -1) {
                 lstTiposTelefones.setSelectedIndex(indexTiposTelefones);
+            ativaOKCancel("DELETEPHONETYPEPHONE", "");
             } else {
-                lblMensagem.setText("Selecione o Tipo de Telefone, para deletar!");
+            ativaOKCancel("DELETEPHONETYPEPHONE", "Selecione o Tipo de Telefone, para deletar!");
             }
-            comando = "DELETEPHONETYPEPHONE";
-            atualizaBotao();
         }
     }//GEN-LAST:event_lblDelTipoTelefoneMouseReleased
 
@@ -1556,12 +1542,6 @@ public class ListaContatos extends javax.swing.JFrame {
             }
         } else if (comando.equals("UPDATEADDRESS")) {
             cancel();
-        }
-        if (comando.equals("UPDATEADDRESSTYPE")
-                || comando.equals("DELETEADDRESSTYPE")
-                || comando.equals("DELETEPHONETYPEPHONE")) {
-            btnOK.setEnabled(true);
-            btnCancel.setEnabled(true);
         }
     }
 

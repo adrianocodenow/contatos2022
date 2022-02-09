@@ -620,18 +620,7 @@ public class ListaContatos extends javax.swing.JFrame {
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
-        btnCancel.setEnabled(false);
-        btnOK.setEnabled(false);
-        comando = "";
-        lblMensagem.setText("");
-        indexTiposEnderecos = -1;
-        indexTiposTelefones = -1;
-        loadContato();
-        scrpTiposEnderecos.setLocation(300, 170);
-        scrpTiposEnderecos.setSize(340, 305);
-        scrpTiposTelefones.setLocation(300, 510);
-        scrpTiposTelefones.setSize(340, 210);
-
+        cancel();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void lstTiposEnderecosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstTiposEnderecosKeyReleased
@@ -935,6 +924,27 @@ public class ListaContatos extends javax.swing.JFrame {
     private static Integer indexTiposTelefones = -1;
     private static Endereco objEndereco = new Endereco();
 
+    private void ativaOKCancel(String comando, String mensagem) {
+        this.comando = comando;
+        lblMensagem.setText(mensagem);
+        btnOK.setEnabled(true);
+        btnCancel.setEnabled(true);
+    }
+
+    private void cancel() {
+        btnCancel.setEnabled(false);
+        btnOK.setEnabled(false);
+        comando = "";
+        lblMensagem.setText("");
+        indexTiposEnderecos = -1;
+        indexTiposTelefones = -1;
+        loadContato();
+        scrpTiposEnderecos.setLocation(300, 170);
+        scrpTiposEnderecos.setSize(340, 305);
+        scrpTiposTelefones.setLocation(300, 510);
+        scrpTiposTelefones.setSize(340, 210);
+    }
+
     private void loadList() {
         lstContatos.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = ContatoCtrl.pesquisa();
@@ -1149,6 +1159,9 @@ public class ListaContatos extends javax.swing.JFrame {
     }
 
     private void loadContato() {
+        if (!comando.equals("") && !comando.equals("UPDATE")) {
+            cancel();
+        }
         for (Contato contato
                 : ContatoCtrl.carregaContato(
                         StrNormalize.removeAcentos1(
@@ -1523,15 +1536,11 @@ public class ListaContatos extends javax.swing.JFrame {
                 : !lstContatos.getSelectedValue().equals(edtNome.getText() + " " + edtSobrenome.getText()))) {
             if (!edtNome.getText().isEmpty() || !edtSobrenome.getText().isEmpty()) {
                 if (comando.equals("")) {
-                    comando = "UPDATE";
-                    btnOK.setEnabled(true);
-                    btnCancel.setEnabled(true);
+                    ativaOKCancel("UPDATE", "Pressione OK para Atualizar");
                 }
             }
         } else if (comando.equals("UPDATE")) {
-            comando = "";
-            btnOK.setEnabled(false);
-            btnCancel.setEnabled(false);
+            cancel();
         }
 
         if (!edtEndereco.getText().equals(objEndereco.getEndereco())
@@ -1542,15 +1551,11 @@ public class ListaContatos extends javax.swing.JFrame {
                 || !edtCEP.getText().equals(objEndereco.getCep())) {
             if (!edtEndereco.getText().isEmpty()) {
                 if (comando.equals("")) {
-                    comando = "UPDATEADDRESS";
-                    btnOK.setEnabled(true);
-                    btnCancel.setEnabled(true);
+                    ativaOKCancel("UPDATEADDRESS", "Pressione OK para Atualizar");
                 }
             }
         } else if (comando.equals("UPDATEADDRESS")) {
-            comando = "";
-            btnOK.setEnabled(false);
-            btnCancel.setEnabled(false);
+            cancel();
         }
         if (comando.equals("UPDATEADDRESSTYPE")
                 || comando.equals("DELETEADDRESSTYPE")

@@ -519,22 +519,22 @@ public class ListaContatos extends javax.swing.JFrame {
 
     private void lstContatosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstContatosKeyReleased
         // TODO add your handling code here:
-        loadContato();
+        controlaEventos(Evento.CLKCONTATO);
     }//GEN-LAST:event_lstContatosKeyReleased
 
     private void lstContatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstContatosMouseClicked
         // TODO add your handling code here:
-        loadContato();
+        controlaEventos(Evento.CLKCONTATO);
     }//GEN-LAST:event_lstContatosMouseClicked
 
     private void lstContatosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstContatosMouseReleased
         // TODO add your handling code here:
-        loadContato();
+        controlaEventos(Evento.CLKCONTATO);
     }//GEN-LAST:event_lstContatosMouseReleased
 
     private void lstContatosMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstContatosMouseDragged
         // TODO add your handling code here:
-        loadContato();
+        controlaEventos(Evento.CLKCONTATO);
     }//GEN-LAST:event_lstContatosMouseDragged
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
@@ -620,22 +620,22 @@ public class ListaContatos extends javax.swing.JFrame {
 
     private void lstTiposEnderecosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstTiposEnderecosKeyReleased
         // TODO add your handling code here:
-        loadEndereco();
+        controlaEventos(Evento.CLKTIPOENDERECO);
     }//GEN-LAST:event_lstTiposEnderecosKeyReleased
 
     private void lstTiposEnderecosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTiposEnderecosMouseClicked
         // TODO add your handling code here:
-        loadEndereco();
+        controlaEventos(Evento.CLKTIPOENDERECO);
     }//GEN-LAST:event_lstTiposEnderecosMouseClicked
 
     private void lstTiposEnderecosMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTiposEnderecosMouseDragged
         // TODO add your handling code here:
-        loadEndereco();
+        controlaEventos(Evento.CLKTIPOENDERECO);
     }//GEN-LAST:event_lstTiposEnderecosMouseDragged
 
     private void lstTiposEnderecosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTiposEnderecosMouseReleased
         // TODO add your handling code here:
-        loadEndereco();
+        controlaEventos(Evento.CLKTIPOENDERECO);
     }//GEN-LAST:event_lstTiposEnderecosMouseReleased
 
     private void btnAddAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAddressActionPerformed
@@ -745,9 +745,9 @@ public class ListaContatos extends javax.swing.JFrame {
             loadListaTiposTelefones();
             if (indexTiposTelefones != -1) {
                 lstTiposTelefones.setSelectedIndex(indexTiposTelefones);
-            ativaOKCancel("DELETEPHONETYPEPHONE", "");
+                ativaOKCancel("DELETEPHONETYPEPHONE", "");
             } else {
-            ativaOKCancel("DELETEPHONETYPEPHONE", "Selecione o Tipo de Telefone, para deletar!");
+                ativaOKCancel("DELETEPHONETYPEPHONE", "Selecione o Tipo de Telefone, para deletar!");
             }
         }
     }//GEN-LAST:event_lblDelTipoTelefoneMouseReleased
@@ -770,42 +770,42 @@ public class ListaContatos extends javax.swing.JFrame {
 
     private void lstTiposTelefonesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstTiposTelefonesKeyReleased
         // TODO add your handling code here:
-        listSyncTelefone();
+        controlaEventos(Evento.CLKTIPOTELEFONE);
     }//GEN-LAST:event_lstTiposTelefonesKeyReleased
 
     private void lstTiposTelefonesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTiposTelefonesMouseClicked
         // TODO add your handling code here:
-        listSyncTelefone();
+        controlaEventos(Evento.CLKTIPOTELEFONE);
     }//GEN-LAST:event_lstTiposTelefonesMouseClicked
 
     private void lstTiposTelefonesMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTiposTelefonesMouseDragged
         // TODO add your handling code here:
-        listSyncTelefone();
+        controlaEventos(Evento.CLKTIPOTELEFONE);
     }//GEN-LAST:event_lstTiposTelefonesMouseDragged
 
     private void lstTiposTelefonesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTiposTelefonesMouseReleased
         // TODO add your handling code here:
-        listSyncTelefone();
+        controlaEventos(Evento.CLKTIPOTELEFONE);
     }//GEN-LAST:event_lstTiposTelefonesMouseReleased
 
     private void lstTelefonesKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstTelefonesKeyReleased
         // TODO add your handling code here:
-        listSyncTipoTelefone();
+        controlaEventos(Evento.CLKTELEFONE);
     }//GEN-LAST:event_lstTelefonesKeyReleased
 
     private void lstTelefonesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTelefonesMouseClicked
         // TODO add your handling code here:
-        listSyncTipoTelefone();
+        controlaEventos(Evento.CLKTELEFONE);
     }//GEN-LAST:event_lstTelefonesMouseClicked
 
     private void lstTelefonesMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTelefonesMouseDragged
         // TODO add your handling code here:
-        listSyncTipoTelefone();
+        controlaEventos(Evento.CLKTELEFONE);
     }//GEN-LAST:event_lstTelefonesMouseDragged
 
     private void lstTelefonesMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTelefonesMouseReleased
         // TODO add your handling code here:
-        listSyncTipoTelefone();
+        controlaEventos(Evento.CLKTELEFONE);
     }//GEN-LAST:event_lstTelefonesMouseReleased
 
     /**
@@ -910,6 +910,15 @@ public class ListaContatos extends javax.swing.JFrame {
     private static Integer indexTiposTelefones = -1;
     private static Endereco objEndereco = new Endereco();
 
+    private static enum Evento {
+        ADDCONTATO, DELCONTATO, UPDATECONTATO,
+        ADDENDERECO, DELENDERECO, UPDATEENDERECO,
+        ADDTELEFONE, DELTELEFONE, UPDATETELEFONE,
+        ADDTIPOENDERECO, DELTIPOENDERECO, UPDATETIPOENDERECO,
+        ADDTIPOTELEFONE, DELTIPOTELEFONE, UPDATETIPOTELEFONE,
+        CLKCONTATO, CLKTIPOENDERECO, CLKTIPOTELEFONE, CLKTELEFONE
+    };
+
     private void ativaOKCancel(String comando, String mensagem) {
         this.comando = comando;
         lblMensagem.setText(mensagem);
@@ -929,6 +938,71 @@ public class ListaContatos extends javax.swing.JFrame {
         scrpTiposEnderecos.setSize(340, 305);
         scrpTiposTelefones.setLocation(300, 510);
         scrpTiposTelefones.setSize(340, 210);
+    }
+
+    private void controlaEventos(Evento evento) {
+        switch (evento) {
+            case ADDCONTATO:
+                loadContato();
+                break;
+            case DELCONTATO:
+                loadContato();
+                break;
+            case UPDATECONTATO:
+                loadContato();
+                break;
+            case ADDENDERECO:
+                loadContato();
+                break;
+            case DELENDERECO:
+                loadContato();
+                break;
+            case UPDATEENDERECO:
+                loadContato();
+                break;
+            case ADDTELEFONE:
+                loadContato();
+                break;
+            case DELTELEFONE:
+                loadContato();
+                break;
+            case UPDATETELEFONE:
+                loadContato();
+                break;
+            case ADDTIPOENDERECO:
+                loadContato();
+                break;
+            case DELTIPOENDERECO:
+                loadContato();
+                break;
+            case UPDATETIPOENDERECO:
+                loadContato();
+                break;
+            case CLKCONTATO:
+                loadContato();
+                break;
+            case ADDTIPOTELEFONE:
+                loadContato();
+                break;
+            case DELTIPOTELEFONE:
+                loadContato();
+                break;
+            case UPDATETIPOTELEFONE:
+                loadContato();
+                break;
+            case CLKTIPOENDERECO:
+                loadEndereco();
+                break;
+            case CLKTIPOTELEFONE:
+                listSyncTelefone();
+                break;
+            case CLKTELEFONE:
+                listSyncTipoTelefone();
+                break;
+
+            default:
+                throw new AssertionError();
+        }
     }
 
     private void loadList() {
@@ -1117,6 +1191,13 @@ public class ListaContatos extends javax.swing.JFrame {
     }
 
     private void loadEndereco() {
+        if (!comando.equals("")
+                && !comando.equals("INSERTADDRESS")
+                && !comando.equals("DELETEADDRESSTYPE")
+                && !comando.equals("UPDATEADDRESSTYPE")) {
+            cancel();
+        }
+
         if (lstTiposEnderecos.getSelectedIndex() != -1) {
             lblMensagem.setText("");
             indexTiposEnderecos = lstTiposEnderecos.getSelectedIndex();

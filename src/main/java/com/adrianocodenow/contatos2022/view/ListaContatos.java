@@ -14,9 +14,11 @@ import com.adrianocodenow.contatos2022.model.Endereco;
 import com.adrianocodenow.contatos2022.model.Telefone;
 import com.adrianocodenow.contatos2022.model.TipoEndereco;
 import com.adrianocodenow.contatos2022.model.TipoTelefone;
-import java.awt.Color;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 
 /**
  *
@@ -164,6 +166,15 @@ public class ListaContatos extends javax.swing.JFrame {
 
         btnAdd.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnAdd.setText("+");
+        btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAddMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAddMouseExited(evt);
+            }
+        });
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddActionPerformed(evt);
@@ -173,6 +184,15 @@ public class ListaContatos extends javax.swing.JFrame {
 
         btnDel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnDel.setText("-");
+        btnDel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDelMouseExited(evt);
+            }
+        });
         btnDel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDelActionPerformed(evt);
@@ -180,9 +200,18 @@ public class ListaContatos extends javax.swing.JFrame {
         });
         getContentPane().add(btnDel, new org.netbeans.lib.awtextra.AbsoluteConstraints(84, 5, 64, 64));
 
-        btnOK.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        btnOK.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         btnOK.setText("OK");
+        btnOK.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnOK.setEnabled(false);
+        btnOK.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnOKMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnOKMouseExited(evt);
+            }
+        });
         btnOK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnOKActionPerformed(evt);
@@ -190,8 +219,18 @@ public class ListaContatos extends javax.swing.JFrame {
         });
         getContentPane().add(btnOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(602, 5, 64, 64));
 
+        btnCancel.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         btnCancel.setText("X");
+        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCancel.setEnabled(false);
+        btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCancelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCancelMouseExited(evt);
+            }
+        });
         btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelActionPerformed(evt);
@@ -199,7 +238,17 @@ public class ListaContatos extends javax.swing.JFrame {
         });
         getContentPane().add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(528, 5, 64, 64));
 
+        btnAddAddress.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         btnAddAddress.setText("+ End");
+        btnAddAddress.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAddAddress.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAddAddressMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAddAddressMouseExited(evt);
+            }
+        });
         btnAddAddress.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddAddressActionPerformed(evt);
@@ -207,7 +256,17 @@ public class ListaContatos extends javax.swing.JFrame {
         });
         getContentPane().add(btnAddAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 5, 64, 64));
 
+        btnDelAddr.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         btnDelAddr.setText("- End");
+        btnDelAddr.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDelAddr.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDelAddrMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDelAddrMouseExited(evt);
+            }
+        });
         btnDelAddr.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDelAddrActionPerformed(evt);
@@ -215,13 +274,43 @@ public class ListaContatos extends javax.swing.JFrame {
         });
         getContentPane().add(btnDelAddr, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 5, 64, 64));
 
+        btnAddPhone.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         btnAddPhone.setText("+ Tel");
+        btnAddPhone.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAddPhone.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAddPhoneMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAddPhoneMouseExited(evt);
+            }
+        });
         getContentPane().add(btnAddPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(306, 5, 64, 64));
 
+        btnDelPhone.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         btnDelPhone.setText("- Tel");
+        btnDelPhone.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDelPhone.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDelPhoneMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDelPhoneMouseExited(evt);
+            }
+        });
         getContentPane().add(btnDelPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 5, 64, 64));
 
+        btnSearch.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         btnSearch.setText("?");
+        btnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSearchMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSearchMouseExited(evt);
+            }
+        });
         getContentPane().add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(454, 5, 64, 64));
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -807,6 +896,78 @@ public class ListaContatos extends javax.swing.JFrame {
         // TODO add your handling code here:
         controlaEventos(Evento.CLKTELEFONE);
     }//GEN-LAST:event_lstTelefonesMouseReleased
+
+    private void btnAddMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseEntered
+        isFocus(btnAdd, true);
+    }//GEN-LAST:event_btnAddMouseEntered
+
+    private void btnAddMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddMouseExited
+        isFocus(btnAdd, false);
+    }//GEN-LAST:event_btnAddMouseExited
+
+    private void btnDelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDelMouseEntered
+        isFocus(btnDel, true);
+    }//GEN-LAST:event_btnDelMouseEntered
+
+    private void btnDelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDelMouseExited
+        isFocus(btnDel, false);
+    }//GEN-LAST:event_btnDelMouseExited
+
+    private void btnAddAddressMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddAddressMouseEntered
+        isFocus(btnAddAddress, true);
+    }//GEN-LAST:event_btnAddAddressMouseEntered
+
+    private void btnAddAddressMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddAddressMouseExited
+        isFocus(btnAddAddress, false);
+    }//GEN-LAST:event_btnAddAddressMouseExited
+
+    private void btnDelAddrMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDelAddrMouseEntered
+        isFocus(btnDelAddr, true);
+    }//GEN-LAST:event_btnDelAddrMouseEntered
+
+    private void btnDelAddrMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDelAddrMouseExited
+        isFocus(btnDelAddr, false);
+    }//GEN-LAST:event_btnDelAddrMouseExited
+
+    private void btnAddPhoneMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddPhoneMouseEntered
+        isFocus(btnAddPhone, true);
+    }//GEN-LAST:event_btnAddPhoneMouseEntered
+
+    private void btnAddPhoneMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddPhoneMouseExited
+        isFocus(btnAddPhone, false);
+    }//GEN-LAST:event_btnAddPhoneMouseExited
+
+    private void btnDelPhoneMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDelPhoneMouseEntered
+        isFocus(btnDelPhone, true);
+    }//GEN-LAST:event_btnDelPhoneMouseEntered
+
+    private void btnDelPhoneMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDelPhoneMouseExited
+        isFocus(btnDelPhone, false);
+    }//GEN-LAST:event_btnDelPhoneMouseExited
+
+    private void btnSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseEntered
+        isFocus(btnSearch, true);
+    }//GEN-LAST:event_btnSearchMouseEntered
+
+    private void btnSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseExited
+        isFocus(btnSearch, false);
+    }//GEN-LAST:event_btnSearchMouseExited
+
+    private void btnCancelMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseEntered
+        isFocus(btnCancel, true);
+    }//GEN-LAST:event_btnCancelMouseEntered
+
+    private void btnCancelMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelMouseExited
+        isFocus(btnCancel, false);
+    }//GEN-LAST:event_btnCancelMouseExited
+
+    private void btnOKMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOKMouseEntered
+        isFocus(btnOK, true);
+    }//GEN-LAST:event_btnOKMouseEntered
+
+    private void btnOKMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnOKMouseExited
+        isFocus(btnOK, false);
+    }//GEN-LAST:event_btnOKMouseExited
 
     /**
      * @param args the command line arguments
@@ -1637,6 +1798,36 @@ public class ListaContatos extends javax.swing.JFrame {
         if (comando.equals("")) {
             lstTelefones.setSelectedIndex(lstTiposTelefones.getSelectedIndex());
             indexTiposTelefones = lstTiposTelefones.getSelectedIndex();
+        }
+    }
+
+    /***
+     * Criando um efeito de animação para os botões ou texto aumentado sua fonte
+     * Botão se o texto for maior que 1 aumenta a fonte para 13 se não para 24
+     * JLabel aumenta o texto de 14 para 24.
+     * @param obj JLabel ou JButton que deseja que se altere
+     * @param isFocus boolean sendo verdadeiro aumenta
+     */
+    private void isFocus(Object obj, boolean isFocus) {
+        if (obj instanceof JLabel) {
+            if (isFocus) {
+                ((JLabel) obj).setFont(new Font("Arial", 0, 24));
+            } else {
+                ((JLabel) obj).setFont(new Font("Arial", 0, 14));
+            }
+        }
+        if (obj instanceof JButton) {
+            if (isFocus && ((JButton) obj).isEnabled()) {
+                if(((JButton) obj).getText().length()>1)
+                    ((JButton) obj).setFont(new Font("Arial", 0, 13));
+                else
+                    ((JButton) obj).setFont(new Font("Arial", 0, 24));
+            } else {
+                if(((JButton) obj).getText().length()>1)
+                    ((JButton) obj).setFont(new Font("Arial", 0, 11));
+                else
+                    ((JButton) obj).setFont(new Font("Arial", 0, 14));
+            }
         }
     }
 

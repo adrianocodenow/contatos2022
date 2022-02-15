@@ -605,12 +605,12 @@ public class ListaContatos extends javax.swing.JFrame {
 
     private void edtNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtNomeKeyReleased
         // TODO add your handling code here:
-        atualizaBotao();
+        controlaEventos(Evento.UPDATECONTATO);
     }//GEN-LAST:event_edtNomeKeyReleased
 
     private void edtSobrenomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtSobrenomeKeyReleased
         // TODO add your handling code here:
-        atualizaBotao();
+        controlaEventos(Evento.UPDATECONTATO);
     }//GEN-LAST:event_edtSobrenomeKeyReleased
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -949,7 +949,7 @@ public class ListaContatos extends javax.swing.JFrame {
                 loadContato();
                 break;
             case UPDATECONTATO:
-                loadContato();
+                ativaContato();
                 break;
             case ADDENDERECO:
                 loadContato();
@@ -1444,9 +1444,7 @@ public class ListaContatos extends javax.swing.JFrame {
                     edtSobrenome.getText());
             limpaCamposContatos();
             loadList2();
-            btnOK.setEnabled(false);
-            btnCancel.setEnabled(false);
-            comando = "";
+            cancel();
         }
     }
 
@@ -1473,6 +1471,20 @@ public class ListaContatos extends javax.swing.JFrame {
             btnOK.setEnabled(false);
             btnCancel.setEnabled(false);
             lblMensagem.setText("");
+        }
+    }
+
+    private void ativaContato() {
+        if ((lstContatos.getSelectedIndex() == -1
+                ? false
+                : !lstContatos.getSelectedValue().equals(edtNome.getText() + " " + edtSobrenome.getText()))) {
+            if (!edtNome.getText().isEmpty() || !edtSobrenome.getText().isEmpty()) {
+                if (comando.equals("")) {
+                    ativaOKCancel("UPDATE", "Pressione OK para Atualizar");
+                }
+            }
+        } else if (comando.equals("UPDATE")) {
+            cancel();
         }
     }
 
@@ -1598,18 +1610,6 @@ public class ListaContatos extends javax.swing.JFrame {
     }
 
     private void atualizaBotao() {
-        if ((lstContatos.getSelectedIndex() == -1
-                ? false
-                : !lstContatos.getSelectedValue().equals(edtNome.getText() + " " + edtSobrenome.getText()))) {
-            if (!edtNome.getText().isEmpty() || !edtSobrenome.getText().isEmpty()) {
-                if (comando.equals("")) {
-                    ativaOKCancel("UPDATE", "Pressione OK para Atualizar");
-                }
-            }
-        } else if (comando.equals("UPDATE")) {
-            cancel();
-        }
-
         if (!edtEndereco.getText().equals(objEndereco.getEndereco())
                 || !edtBairro.getText().equals(objEndereco.getBairro())
                 || !edtCidade.getText().equals(objEndereco.getCidade())

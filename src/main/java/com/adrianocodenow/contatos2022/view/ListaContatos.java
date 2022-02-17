@@ -546,8 +546,8 @@ public class ListaContatos extends javax.swing.JFrame {
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         limpaCamposContato();
-        ativaNomeSobrenome();
         ativaOKCancel("INSERT", "");
+        ativaNomeSobrenome();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
@@ -644,8 +644,8 @@ public class ListaContatos extends javax.swing.JFrame {
     private void btnAddAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAddressActionPerformed
         // TODO add your handling code here:
         limpaCamposEndereco();
-        ativaEndereco();
         ativaOKCancel("INSERTADDRESS", "");
+        ativaEndereco();
         lstTiposEnderecos.clearSelection();
         loadListaTiposEnderecos();
     }//GEN-LAST:event_btnAddAddressActionPerformed
@@ -1301,7 +1301,9 @@ public class ListaContatos extends javax.swing.JFrame {
     private void ativaNomeSobrenome() {
         edtNome.setEnabled(true);
         edtSobrenome.setEnabled(true);
-        edtNome.requestFocus();
+        if (!comando.equals("")) {
+            edtNome.requestFocus();
+        }
     }
 
     private void ativaEndereco() {
@@ -1313,7 +1315,9 @@ public class ListaContatos extends javax.swing.JFrame {
         edtPais.setEnabled(true);
         edtTipoEndereco.setEnabled(true);
         lstTiposEnderecos.setEnabled(true);
-        edtEndereco.requestFocus();
+        if (!comando.equals("")) {
+            edtEndereco.requestFocus();
+        }
     }
 
     private void ativaTelefone() {
@@ -1443,9 +1447,11 @@ public class ListaContatos extends javax.swing.JFrame {
                     contatosIndice.get(lstContatos.getSelectedIndex()),
                     edtNome.getText(),
                     edtSobrenome.getText());
-            limpaCamposContato();
-            loadList2();
-            cancel();
+            if (!comando.equals("UPDATECONTATOANDADDRESS")) {
+                limpaCamposContato();
+                loadList2();
+                cancel();
+            }
         }
     }
 
@@ -1477,6 +1483,8 @@ public class ListaContatos extends javax.swing.JFrame {
             if (!edtNome.getText().isEmpty() || !edtSobrenome.getText().isEmpty()) {
                 if (comando.equals("")) {
                     ativaOKCancel("UPDATE", "Pressione OK para Atualizar");
+                } else if (comando.equals("UPDATEADDRESS")) {
+                    ativaOKCancel("UPDATECONTATOANDADDRESS", "Pressione OK para Atualizar");
                 }
             }
         } else if (comando.equals("UPDATE")) {
@@ -1532,6 +1540,10 @@ public class ListaContatos extends javax.swing.JFrame {
                 endereco.setIdContato(contatosIndice.get(lstContatos.getSelectedIndex()));
                 endereco.setIdTipoEndereco(tiposEnderecosIndice.get(lstTiposEnderecos.getSelectedIndex()));
                 EnderecoDao.altera(endereco);
+                if (comando.equals("UPDATECONTATOANDADDRESS")) {
+                    limpaCamposContato();
+                    loadList2();
+                }
                 cancel();
             }
         } else {

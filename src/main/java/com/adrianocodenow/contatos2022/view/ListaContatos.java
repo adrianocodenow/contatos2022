@@ -14,11 +14,13 @@ import com.adrianocodenow.contatos2022.model.Endereco;
 import com.adrianocodenow.contatos2022.model.Telefone;
 import com.adrianocodenow.contatos2022.model.TipoEndereco;
 import com.adrianocodenow.contatos2022.model.TipoTelefone;
+import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -52,61 +54,70 @@ public class ListaContatos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         lstContatos = new javax.swing.JList<>();
-        lblMensagem = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         edtNome = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        lblEditTipoEndereco = new javax.swing.JLabel();
+        lblDelTipoEndereco = new javax.swing.JLabel();
+        lblAddTipoEndereco = new javax.swing.JLabel();
+        edtTipoEndereco = new javax.swing.JTextField();
+        scrpTiposEnderecos = new javax.swing.JScrollPane();
+        lstTiposEnderecos = new javax.swing.JList<>();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        lblEditTipoTelefone = new javax.swing.JLabel();
+        lblDelTipoTelefone = new javax.swing.JLabel();
+        lblAddTipoTelefone = new javax.swing.JLabel();
+        edtTipoTelefone = new javax.swing.JTextField();
+        scrpTiposTelefones = new javax.swing.JScrollPane();
+        lstTiposTelefones = new javax.swing.JList<>();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         edtSobrenome = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        edtEndereco = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        edtBairro = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        edtCidade = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        edtEstado = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        edtPais = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        edtCEP = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        lblEditTelefone = new javax.swing.JLabel();
+        lblDelTelefone = new javax.swing.JLabel();
+        lblAddTelefone = new javax.swing.JLabel();
+        edtTelefone = new javax.swing.JTextField();
+        scrpTelefones = new javax.swing.JScrollPane();
+        lstTelefones = new javax.swing.JList<>();
+        jPanel6 = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
         btnDel = new javax.swing.JButton();
-        btnOK = new javax.swing.JButton();
-        btnCancel = new javax.swing.JButton();
         btnAddAddress = new javax.swing.JButton();
         btnDelAddr = new javax.swing.JButton();
         btnAddPhone = new javax.swing.JButton();
         btnDelPhone = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        btnCancel = new javax.swing.JButton();
+        btnOK = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        edtEndereco = new javax.swing.JTextField();
-        edtCEP = new javax.swing.JTextField();
-        edtBairro = new javax.swing.JTextField();
-        edtCidade = new javax.swing.JTextField();
-        edtEstado = new javax.swing.JTextField();
-        edtPais = new javax.swing.JTextField();
-        scrpTiposEnderecos = new javax.swing.JScrollPane();
-        lstTiposEnderecos = new javax.swing.JList<>();
-        edtTipoEndereco = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        lblAddTipoEndereco = new javax.swing.JLabel();
-        lblDelTipoEndereco = new javax.swing.JLabel();
-        lblEditTipoEndereco = new javax.swing.JLabel();
-        scrpTiposTelefones = new javax.swing.JScrollPane();
-        lstTiposTelefones = new javax.swing.JList<>();
-        scrpTelefones = new javax.swing.JScrollPane();
-        lstTelefones = new javax.swing.JList<>();
-        edtTipoTelefone = new javax.swing.JTextField();
-        edtTelefone = new javax.swing.JTextField();
-        jLabel12 = new javax.swing.JLabel();
-        lblAddTipoTelefone = new javax.swing.JLabel();
-        lblDelTipoTelefone = new javax.swing.JLabel();
-        lblEditTipoTelefone = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        lblAddTelefone = new javax.swing.JLabel();
-        lblDelTelefone = new javax.swing.JLabel();
-        lblEditTelefone = new javax.swing.JLabel();
+        lblMensagem = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(1024, 768));
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel2.setText("Contatos");
+        jLabel2.setOpaque(true);
 
         lstContatos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lstContatos.setModel(new javax.swing.AbstractListModel<String>() {
@@ -134,11 +145,30 @@ public class ListaContatos extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(lstContatos);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 280, 620));
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1)
+                .addContainerGap())
+        );
 
-        lblMensagem.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblMensagem.setText("LINHA DE MENSAGEM");
-        getContentPane().add(lblMensagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(674, 39, 338, 30));
+        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel3.setText("Nome");
+        jLabel3.setOpaque(true);
 
         edtNome.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         edtNome.setText("jTextField1");
@@ -150,241 +180,44 @@ public class ListaContatos extends javax.swing.JFrame {
                 edtNomeKeyReleased(evt);
             }
         });
-        getContentPane().add(edtNome, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 100, 351, 30));
 
-        edtSobrenome.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        edtSobrenome.setText("jTextField1");
-        edtSobrenome.setMaximumSize(new java.awt.Dimension(351, 30));
-        edtSobrenome.setMinimumSize(new java.awt.Dimension(351, 30));
-        edtSobrenome.setPreferredSize(new java.awt.Dimension(330, 30));
-        edtSobrenome.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                edtSobrenomeKeyReleased(evt);
+        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel5.setText("Tipos de Endereço");
+
+        lblEditTipoEndereco.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblEditTipoEndereco.setText("Edit");
+        lblEditTipoEndereco.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblEditTipoEnderecoMouseReleased(evt);
             }
         });
-        getContentPane().add(edtSobrenome, new org.netbeans.lib.awtextra.AbsoluteConstraints(651, 100, 351, 30));
 
-        btnAdd.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        btnAdd.setText("+");
-        btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblDelTipoEndereco.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblDelTipoEndereco.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDelTipoEndereco.setText("-");
+        lblDelTipoEndereco.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblDelTipoEnderecoMouseReleased(evt);
+            }
+        });
+
+        lblAddTipoEndereco.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblAddTipoEndereco.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAddTipoEndereco.setText("+");
+        lblAddTipoEndereco.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnAddMouseEntered(evt);
+                lblAddTipoEnderecoMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnAddMouseExited(evt);
+                lblAddTipoEnderecoMouseExited(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblAddTipoEnderecoMouseReleased(evt);
             }
         });
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 5, 64, 64));
 
-        btnDel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        btnDel.setText("-");
-        btnDel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnDel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnDelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnDelMouseExited(evt);
-            }
-        });
-        btnDel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDelActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnDel, new org.netbeans.lib.awtextra.AbsoluteConstraints(84, 5, 64, 64));
-
-        btnOK.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        btnOK.setText("OK");
-        btnOK.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnOK.setEnabled(false);
-        btnOK.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnOKMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnOKMouseExited(evt);
-            }
-        });
-        btnOK.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnOKActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(602, 5, 64, 64));
-
-        btnCancel.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        btnCancel.setText("X");
-        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnCancel.setEnabled(false);
-        btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnCancelMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnCancelMouseExited(evt);
-            }
-        });
-        btnCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(528, 5, 64, 64));
-
-        btnAddAddress.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        btnAddAddress.setText("+ End");
-        btnAddAddress.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAddAddress.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnAddAddressMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnAddAddressMouseExited(evt);
-            }
-        });
-        btnAddAddress.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddAddressActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnAddAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 5, 64, 64));
-
-        btnDelAddr.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        btnDelAddr.setText("- End");
-        btnDelAddr.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnDelAddr.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnDelAddrMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnDelAddrMouseExited(evt);
-            }
-        });
-        btnDelAddr.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDelAddrActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnDelAddr, new org.netbeans.lib.awtextra.AbsoluteConstraints(232, 5, 64, 64));
-
-        btnAddPhone.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        btnAddPhone.setText("+ Tel");
-        btnAddPhone.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnAddPhone.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnAddPhoneMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnAddPhoneMouseExited(evt);
-            }
-        });
-        getContentPane().add(btnAddPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(306, 5, 64, 64));
-
-        btnDelPhone.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        btnDelPhone.setText("- Tel");
-        btnDelPhone.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnDelPhone.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnDelPhoneMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnDelPhoneMouseExited(evt);
-            }
-        });
-        getContentPane().add(btnDelPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 5, 64, 64));
-
-        btnSearch.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
-        btnSearch.setText("?");
-        btnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnSearchMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnSearchMouseExited(evt);
-            }
-        });
-        getContentPane().add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(454, 5, 64, 64));
-
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel1.setText("Sobrenome");
-        jLabel1.setOpaque(true);
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(651, 70, -1, 30));
-
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel2.setText("Contatos");
-        jLabel2.setOpaque(true);
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, 30));
-
-        jLabel3.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel3.setText("Nome");
-        jLabel3.setOpaque(true);
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 70, -1, 30));
-
-        jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel4.setText("MENSAGEM");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(674, 10, -1, -1));
-
-        edtEndereco.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        edtEndereco.setText("jTextField1");
-        edtEndereco.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                edtEnderecoKeyReleased(evt);
-            }
-        });
-        getContentPane().add(edtEndereco, new org.netbeans.lib.awtextra.AbsoluteConstraints(651, 170, 351, 30));
-
-        edtCEP.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        edtCEP.setText("jTextField2");
-        edtCEP.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                edtCEPKeyReleased(evt);
-            }
-        });
-        getContentPane().add(edtCEP, new org.netbeans.lib.awtextra.AbsoluteConstraints(651, 445, 351, 30));
-
-        edtBairro.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        edtBairro.setText("jTextField2");
-        edtBairro.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                edtBairroKeyReleased(evt);
-            }
-        });
-        getContentPane().add(edtBairro, new org.netbeans.lib.awtextra.AbsoluteConstraints(651, 225, 351, 30));
-
-        edtCidade.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        edtCidade.setText("jTextField2");
-        edtCidade.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                edtCidadeKeyReleased(evt);
-            }
-        });
-        getContentPane().add(edtCidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(651, 280, 351, 30));
-
-        edtEstado.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        edtEstado.setText("jTextField2");
-        edtEstado.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                edtEstadoKeyReleased(evt);
-            }
-        });
-        getContentPane().add(edtEstado, new org.netbeans.lib.awtextra.AbsoluteConstraints(651, 335, 351, 30));
-
-        edtPais.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        edtPais.setText("jTextField2");
-        edtPais.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                edtPaisKeyReleased(evt);
-            }
-        });
-        getContentPane().add(edtPais, new org.netbeans.lib.awtextra.AbsoluteConstraints(651, 390, 351, 30));
+        edtTipoEndereco.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        edtTipoEndereco.setText("jTextField1");
 
         scrpTiposEnderecos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
@@ -414,66 +247,78 @@ public class ListaContatos extends javax.swing.JFrame {
         });
         scrpTiposEnderecos.setViewportView(lstTiposEnderecos);
 
-        getContentPane().add(scrpTiposEnderecos, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 170, 340, 305));
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(edtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(edtTipoEndereco)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblAddTipoEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblDelTipoEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblEditTipoEndereco))
+                    .addComponent(scrpTiposEnderecos))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(edtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(lblEditTipoEndereco)
+                    .addComponent(lblDelTipoEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAddTipoEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(edtTipoEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrpTiposEnderecos)
+                .addContainerGap())
+        );
 
-        edtTipoEndereco.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        edtTipoEndereco.setText("jTextField1");
-        getContentPane().add(edtTipoEndereco, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 170, 340, 30));
+        jLabel12.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel12.setText("Tipos de Telefones");
 
-        jLabel5.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel5.setText("Tipos de Endereço");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 150, -1, -1));
-
-        jLabel6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel6.setText("Endereço");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(651, 150, -1, -1));
-
-        jLabel7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel7.setText("Bairro");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(651, 205, -1, -1));
-
-        jLabel8.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel8.setText("Cidade");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(651, 260, -1, -1));
-
-        jLabel9.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel9.setText("Estado");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(651, 315, -1, -1));
-
-        jLabel10.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel10.setText("País");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(651, 370, -1, -1));
-
-        jLabel11.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel11.setText("CEP");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(651, 425, -1, -1));
-
-        lblAddTipoEndereco.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblAddTipoEndereco.setText("+");
-        lblAddTipoEndereco.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblEditTipoTelefone.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblEditTipoTelefone.setText("Edit");
+        lblEditTipoTelefone.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                lblAddTipoEnderecoMouseReleased(evt);
+                lblEditTipoTelefoneMouseReleased(evt);
             }
         });
-        getContentPane().add(lblAddTipoEndereco, new org.netbeans.lib.awtextra.AbsoluteConstraints(575, 150, -1, -1));
 
-        lblDelTipoEndereco.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblDelTipoEndereco.setText("-");
-        lblDelTipoEndereco.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblDelTipoTelefone.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblDelTipoTelefone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDelTipoTelefone.setText("-");
+        lblDelTipoTelefone.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                lblDelTipoEnderecoMouseReleased(evt);
+                lblDelTipoTelefoneMouseReleased(evt);
             }
         });
-        getContentPane().add(lblDelTipoEndereco, new org.netbeans.lib.awtextra.AbsoluteConstraints(595, 150, -1, -1));
 
-        lblEditTipoEndereco.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblEditTipoEndereco.setText("Edit");
-        lblEditTipoEndereco.addMouseListener(new java.awt.event.MouseAdapter() {
+        lblAddTipoTelefone.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblAddTipoTelefone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAddTipoTelefone.setText("+");
+        lblAddTipoTelefone.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                lblEditTipoEnderecoMouseReleased(evt);
+                lblAddTipoTelefoneMouseReleased(evt);
             }
         });
-        getContentPane().add(lblEditTipoEndereco, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 150, -1, -1));
+
+        edtTipoTelefone.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        edtTipoTelefone.setText("jTextField1");
 
         scrpTiposTelefones.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
@@ -503,7 +348,213 @@ public class ListaContatos extends javax.swing.JFrame {
         });
         scrpTiposTelefones.setViewportView(lstTiposTelefones);
 
-        getContentPane().add(scrpTiposTelefones, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 510, 340, 210));
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(edtTipoTelefone)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblAddTipoTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblDelTipoTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblEditTipoTelefone))
+                    .addComponent(scrpTiposTelefones))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(lblEditTipoTelefone)
+                    .addComponent(lblDelTipoTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAddTipoTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(edtTipoTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrpTiposTelefones, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel1.setText("Sobrenome");
+        jLabel1.setOpaque(true);
+
+        edtSobrenome.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        edtSobrenome.setText("jTextField1");
+        edtSobrenome.setMaximumSize(new java.awt.Dimension(351, 30));
+        edtSobrenome.setMinimumSize(new java.awt.Dimension(351, 30));
+        edtSobrenome.setPreferredSize(new java.awt.Dimension(330, 30));
+        edtSobrenome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                edtSobrenomeKeyReleased(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel6.setText("Endereço");
+
+        edtEndereco.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        edtEndereco.setText("jTextField1");
+        edtEndereco.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                edtEnderecoKeyReleased(evt);
+            }
+        });
+
+        jLabel7.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel7.setText("Bairro");
+
+        edtBairro.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        edtBairro.setText("jTextField2");
+        edtBairro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                edtBairroKeyReleased(evt);
+            }
+        });
+
+        jLabel8.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel8.setText("Cidade");
+
+        edtCidade.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        edtCidade.setText("jTextField2");
+        edtCidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                edtCidadeKeyReleased(evt);
+            }
+        });
+
+        jLabel9.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel9.setText("Estado");
+
+        edtEstado.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        edtEstado.setText("jTextField2");
+        edtEstado.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                edtEstadoKeyReleased(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel10.setText("País");
+
+        edtPais.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        edtPais.setText("jTextField2");
+        edtPais.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                edtPaisKeyReleased(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel11.setText("CEP");
+
+        edtCEP.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        edtCEP.setText("jTextField2");
+        edtCEP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                edtCEPKeyReleased(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(edtSobrenome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(edtEndereco)
+                    .addComponent(edtBairro)
+                    .addComponent(edtEstado)
+                    .addComponent(edtCidade)
+                    .addComponent(edtPais)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel11))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(edtCEP))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(edtSobrenome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(edtEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(edtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(edtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(edtEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel10)
+                .addGap(18, 18, 18)
+                .addComponent(edtPais, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel11)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(edtCEP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jLabel13.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel13.setText("Telefones");
+
+        lblEditTelefone.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblEditTelefone.setText("Edit");
+        lblEditTelefone.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblEditTelefoneMouseReleased(evt);
+            }
+        });
+
+        lblDelTelefone.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblDelTelefone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblDelTelefone.setText("-");
+        lblDelTelefone.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblDelTelefoneMouseReleased(evt);
+            }
+        });
+
+        lblAddTelefone.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblAddTelefone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblAddTelefone.setText("+");
+        lblAddTelefone.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                lblAddTelefoneMouseReleased(evt);
+            }
+        });
+
+        edtTelefone.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        edtTelefone.setText("jTextField1");
 
         lstTelefones.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lstTelefones.setModel(new javax.swing.AbstractListModel<String>() {
@@ -531,79 +582,273 @@ public class ListaContatos extends javax.swing.JFrame {
         });
         scrpTelefones.setViewportView(lstTelefones);
 
-        getContentPane().add(scrpTelefones, new org.netbeans.lib.awtextra.AbsoluteConstraints(651, 510, 351, 210));
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(scrpTelefones)
+                    .addComponent(edtTelefone, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblAddTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblDelTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblEditTelefone)))
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(lblEditTelefone)
+                    .addComponent(lblDelTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblAddTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(edtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrpTelefones, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
-        edtTipoTelefone.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        edtTipoTelefone.setText("jTextField1");
-        getContentPane().add(edtTipoTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 510, 340, -1));
-
-        edtTelefone.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        edtTelefone.setText("jTextField1");
-        getContentPane().add(edtTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(651, 510, 351, -1));
-
-        jLabel12.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel12.setText("Tipos de Telefones");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 490, -1, -1));
-
-        lblAddTipoTelefone.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblAddTipoTelefone.setText("+");
-        lblAddTipoTelefone.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                lblAddTipoTelefoneMouseReleased(evt);
+        btnAdd.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        btnAdd.setText("+");
+        btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAdd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAddMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAddMouseExited(evt);
             }
         });
-        getContentPane().add(lblAddTipoTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(575, 490, -1, -1));
-
-        lblDelTipoTelefone.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblDelTipoTelefone.setText("-");
-        lblDelTipoTelefone.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                lblDelTipoTelefoneMouseReleased(evt);
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
             }
         });
-        getContentPane().add(lblDelTipoTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(595, 490, -1, -1));
 
-        lblEditTipoTelefone.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblEditTipoTelefone.setText("Edit");
-        lblEditTipoTelefone.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                lblEditTipoTelefoneMouseReleased(evt);
+        btnDel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        btnDel.setText("-");
+        btnDel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDelMouseExited(evt);
             }
         });
-        getContentPane().add(lblEditTipoTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 490, -1, -1));
-
-        jLabel13.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel13.setText("Telefones");
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(651, 490, -1, -1));
-
-        lblAddTelefone.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblAddTelefone.setText("+");
-        lblAddTelefone.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                lblAddTelefoneMouseReleased(evt);
+        btnDel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelActionPerformed(evt);
             }
         });
-        getContentPane().add(lblAddTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(941, 490, -1, -1));
 
-        lblDelTelefone.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblDelTelefone.setText("-");
-        lblDelTelefone.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                lblDelTelefoneMouseReleased(evt);
+        btnAddAddress.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        btnAddAddress.setText("+ End");
+        btnAddAddress.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAddAddress.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAddAddressMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAddAddressMouseExited(evt);
             }
         });
-        getContentPane().add(lblDelTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(956, 490, -1, -1));
-
-        lblEditTelefone.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblEditTelefone.setText("Edit");
-        lblEditTelefone.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                lblEditTelefoneMouseReleased(evt);
+        btnAddAddress.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddAddressActionPerformed(evt);
             }
         });
-        getContentPane().add(lblEditTelefone, new org.netbeans.lib.awtextra.AbsoluteConstraints(971, 490, -1, -1));
+
+        btnDelAddr.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        btnDelAddr.setText("- End");
+        btnDelAddr.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDelAddr.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDelAddrMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDelAddrMouseExited(evt);
+            }
+        });
+        btnDelAddr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDelAddrActionPerformed(evt);
+            }
+        });
+
+        btnAddPhone.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        btnAddPhone.setText("+ Tel");
+        btnAddPhone.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAddPhone.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnAddPhoneMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnAddPhoneMouseExited(evt);
+            }
+        });
+
+        btnDelPhone.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        btnDelPhone.setText("- Tel");
+        btnDelPhone.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDelPhone.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnDelPhoneMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnDelPhoneMouseExited(evt);
+            }
+        });
+
+        btnSearch.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        btnSearch.setText("?");
+        btnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnSearchMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnSearchMouseExited(evt);
+            }
+        });
+
+        btnCancel.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        btnCancel.setText("X");
+        btnCancel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCancel.setEnabled(false);
+        btnCancel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnCancelMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnCancelMouseExited(evt);
+            }
+        });
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelActionPerformed(evt);
+            }
+        });
+
+        btnOK.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
+        btnOK.setText("OK");
+        btnOK.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnOK.setEnabled(false);
+        btnOK.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnOKMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnOKMouseExited(evt);
+            }
+        });
+        btnOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnOKActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel4.setText("MENSAGEM");
+
+        lblMensagem.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        lblMensagem.setText("LINHA DE MENSAGEM");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAddAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDelAddr, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnAddPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnDelPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(lblMensagem, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
+                .addContainerGap())
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAddAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDelAddr, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnAddPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnDelPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblMensagem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel4))
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 370, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void lstContatosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstContatosKeyReleased
@@ -969,6 +1214,14 @@ public class ListaContatos extends javax.swing.JFrame {
         isFocus(btnOK, false);
     }//GEN-LAST:event_btnOKMouseExited
 
+    private void lblAddTipoEnderecoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddTipoEnderecoMouseExited
+        isFocus(lblAddTipoEndereco, false);
+    }//GEN-LAST:event_lblAddTipoEnderecoMouseExited
+
+    private void lblAddTipoEnderecoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddTipoEnderecoMouseEntered
+        isFocus(lblAddTipoEndereco, true);
+    }//GEN-LAST:event_lblAddTipoEnderecoMouseEntered
+
     /**
      * @param args the command line arguments
      */
@@ -1038,6 +1291,12 @@ public class ListaContatos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblAddTelefone;
     private javax.swing.JLabel lblAddTipoEndereco;
@@ -1493,10 +1752,10 @@ public class ListaContatos extends javax.swing.JFrame {
         edtEstado.setEnabled(false);
         edtPais.setEnabled(false);
         edtTelefone.setEnabled(false);
-        edtTipoEndereco.setEnabled(false);
-        edtTipoTelefone.setEnabled(false);
+        edtTipoEndereco.setVisible(false);
+        edtTipoTelefone.setVisible(false);
 //        lstTipoEnderecos.setEnabled(false);
-        lstTelefones.setEnabled(false);
+        lstTelefones.setVisible(false);
 //        lstTiposTelefones.setEnabled(false);
     }
 
@@ -1586,7 +1845,11 @@ public class ListaContatos extends javax.swing.JFrame {
     private void insereContato() {
         if (comando.equals("INSERT")) {
             if (!edtNome.getText().isEmpty() || !edtSobrenome.getText().isEmpty()) {
-                ContatoCtrl.insere(edtNome.getText(), edtSobrenome.getText());
+                if (ContatoCtrl.insere(edtNome.getText(), edtSobrenome.getText())) {
+                    JOptionPane.showMessageDialog(rootPane, "Contato salvo com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao adicionar novo contato!", "Aviso", JOptionPane.ERROR_MESSAGE);
+                }
             }
             limpaCamposContatos();
             loadList2();
@@ -1599,10 +1862,14 @@ public class ListaContatos extends javax.swing.JFrame {
 
     private void atualizaContato() {
         if (!edtNome.getText().isEmpty() || !edtSobrenome.getText().isEmpty()) {
-            ContatoCtrl.altera(
+            if (ContatoCtrl.altera(
                     contatosIndice.get(lstContatos.getSelectedIndex()),
                     edtNome.getText(),
-                    edtSobrenome.getText());
+                    edtSobrenome.getText())) {
+                JOptionPane.showMessageDialog(rootPane, "Contato atualizado com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Erro ao atualizado contato!", "Aviso", JOptionPane.ERROR_MESSAGE);
+            }
             limpaCamposContatos();
             loadList2();
             btnOK.setEnabled(false);
@@ -1613,10 +1880,14 @@ public class ListaContatos extends javax.swing.JFrame {
 
     private void atualizaContatoGeral() {
         if (!edtNome.getText().isEmpty() || !edtSobrenome.getText().isEmpty()) {
-            ContatoCtrl.alteraGeral(
+            if (ContatoCtrl.alteraGeral(
                     lstContatos.getSelectedValue(),
                     edtNome.getText(),
-                    edtSobrenome.getText());
+                    edtSobrenome.getText())) {
+                JOptionPane.showMessageDialog(rootPane, "Contato atualizado com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Erro ao atualizado contato!", "Aviso", JOptionPane.ERROR_MESSAGE);
+            }
             limpaCamposContatos();
             loadList2();
             btnOK.setEnabled(false);
@@ -1627,7 +1898,11 @@ public class ListaContatos extends javax.swing.JFrame {
 
     private void deletaContato() {
         if (!edtNome.getText().isEmpty() || !edtSobrenome.getText().isEmpty()) {
-            ContatoCtrl.deleta(contatosIndice.get(lstContatos.getSelectedIndex()));
+            if (ContatoCtrl.deleta(contatosIndice.get(lstContatos.getSelectedIndex()))) {
+                JOptionPane.showMessageDialog(rootPane, "Contato deletado com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Erro ao deleta contato!", "Aviso", JOptionPane.ERROR_MESSAGE);
+            }
             limpaCamposContatos();
             loadList2();
             comando = "";
@@ -1649,7 +1924,11 @@ public class ListaContatos extends javax.swing.JFrame {
                 endereco.setPais(edtPais.getText());
                 endereco.setIdContato(contatosIndice.get(lstContatos.getSelectedIndex()));
                 endereco.setIdTipoEndereco(tiposEnderecosIndice.get(lstTiposEnderecos.getSelectedIndex()));
-                EnderecoDao.insere(endereco);
+                if (EnderecoDao.insere(endereco)) {
+                    JOptionPane.showMessageDialog(rootPane, "Endereço adicionado com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Erro ao adiciona endereço", "Aviso", JOptionPane.ERROR_MESSAGE);
+                }
                 comando = "";
                 btnOK.setEnabled(false);
                 btnCancel.setEnabled(false);
@@ -1765,6 +2044,7 @@ public class ListaContatos extends javax.swing.JFrame {
             if (!edtNome.getText().isEmpty() || !edtSobrenome.getText().isEmpty()) {
                 if (comando.equals("")) {
                     ativaOKCancel("UPDATE", "Pressione OK para Atualizar");
+                    new MensagemAviso();
                 }
             }
         } else if (comando.equals("UPDATE")) {
@@ -1779,7 +2059,7 @@ public class ListaContatos extends javax.swing.JFrame {
                 || !edtCEP.getText().equals(objEndereco.getCep())) {
             if (!edtEndereco.getText().isEmpty()) {
                 if (comando.equals("")) {
-                    ativaOKCancel("UPDATEADDRESS", "Pressione OK para Atualizar");
+                    ativaOKCancel("UPDATEADDRESS", "Pressione OK para Atualizar");                    
                 }
             }
         } else if (comando.equals("UPDATEADDRESS")) {
@@ -1801,10 +2081,12 @@ public class ListaContatos extends javax.swing.JFrame {
         }
     }
 
-    /***
+    /**
+     * *
      * Criando um efeito de animação para os botões ou texto aumentado sua fonte
      * Botão se o texto for maior que 1 aumenta a fonte para 13 se não para 24
      * JLabel aumenta o texto de 14 para 24.
+     *
      * @param obj JLabel ou JButton que deseja que se altere
      * @param isFocus boolean sendo verdadeiro aumenta
      */
@@ -1818,17 +2100,45 @@ public class ListaContatos extends javax.swing.JFrame {
         }
         if (obj instanceof JButton) {
             if (isFocus && ((JButton) obj).isEnabled()) {
-                if(((JButton) obj).getText().length()>1)
+                if (((JButton) obj).getText().length() > 1) {
                     ((JButton) obj).setFont(new Font("Arial", 0, 13));
-                else
+                } else {
                     ((JButton) obj).setFont(new Font("Arial", 0, 24));
+                }
             } else {
-                if(((JButton) obj).getText().length()>1)
+                if (((JButton) obj).getText().length() > 1) {
                     ((JButton) obj).setFont(new Font("Arial", 0, 11));
-                else
+                } else {
                     ((JButton) obj).setFont(new Font("Arial", 0, 14));
+                }
             }
         }
+    }
+
+    public class MensagemAviso extends Thread {
+
+        public MensagemAviso() {
+            start();
+        }
+
+        @Override
+        public void run() {
+            for (int i = 0; i < 20; i++) {
+                if (i % 2 == 0) {
+                    lblMensagem.setVisible(false);
+                } else {
+                    lblMensagem.setVisible(true);
+                    lblMensagem.setForeground(new Color(204,101,0));
+                }
+                try {
+                    Thread.sleep(900);
+                } catch (InterruptedException e) {
+
+                }
+            }
+            lblMensagem.setForeground(new Color(0,0,0));
+        }
+
     }
 
 }

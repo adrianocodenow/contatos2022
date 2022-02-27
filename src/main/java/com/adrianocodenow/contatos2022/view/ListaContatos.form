@@ -234,7 +234,7 @@
             <Property name="text" type="java.lang.String" value="Edit"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblEditTipoEnderecoMouseReleased"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblEditTipoEnderecoMouseClicked"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="lblDelTipoEndereco">

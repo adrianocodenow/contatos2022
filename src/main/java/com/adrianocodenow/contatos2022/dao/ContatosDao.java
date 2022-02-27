@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
+import javax.swing.ListModel;
 
 /**
  *
@@ -332,6 +335,20 @@ public class ContatosDao {
             }
         }
         return contatos;
+    }
+    
+    public static ListModel<String> getModel(){
+        return new DefaultListModel<String>() {
+            @Override
+            public int getSize() {
+                return lista().size();
+            }
+
+            @Override
+            public String getElementAt(int index) {
+                return lista().get(index).getNomeSobrenomeFonetico();
+            }
+        };        
     }
 
     public static void main(String[] args) {

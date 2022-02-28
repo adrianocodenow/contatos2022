@@ -27,8 +27,7 @@ public class ContatoCtrl {
         contato.setDataCriacao(new java.util.Date());
         contato.setDataUltimaAtualizacao(contato.getDataCriacao());
         contato.setAtivo(true);
-        ContatosDao.insere(contato);
-        return true;
+        return ContatosDao.insere(contato);
     }
 
     public static boolean altera(int id, String nome, String sobrenome) {

@@ -4,6 +4,9 @@ import com.adrianocodenow.contatos2022.controller.Config;
 import com.adrianocodenow.contatos2022.controller.StrNormalize;
 import com.adrianocodenow.contatos2022.factory.ConnectionFactory;
 import com.adrianocodenow.contatos2022.model.Contato;
+import com.adrianocodenow.contatos2022.model.Endereco;
+import com.adrianocodenow.contatos2022.model.Telefone;
+import com.adrianocodenow.contatos2022.model.TipoEndereco;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -23,6 +26,10 @@ import javax.swing.ListModel;
  * @author apereira
  */
 public class ContatosDao {
+    
+    public static List<Contato> listContato;
+    public static List<Endereco> listEndereco;
+    public static List<Telefone> lsitTelefone;
 
     public static boolean insere(Contato objContato) {
         String sql
@@ -85,11 +92,7 @@ public class ContatosDao {
                 stmt = db.prepareStatement(sql);
                 stmt.setString(1, objContato.getNome());
                 stmt.setString(2, objContato.getSobrenome());
-                stmt.setString(3,
-                        StrNormalize.removeAcentos1(
-                                objContato.getNome() + " " + objContato.getSobrenome()
-                        ).toLowerCase()
-                );
+                stmt.setString(3, objContato.getNome() + " " + objContato.getSobrenome());
                 stmt.setDate(4, new Date(objContato.getDataUltimaAtualizacao().getTime()));
                 stmt.setBoolean(5, objContato.isAtivo());
                 stmt.setInt(6, objContato.getIdContato());
@@ -99,7 +102,7 @@ public class ContatosDao {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             retorno = false;
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ContatosDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(ex.getClass().getName() + ": " + ex.getMessage());
             retorno = false;
         } finally {
             try {
@@ -175,7 +178,7 @@ public class ContatosDao {
         } catch (SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ContatosDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.err.println(ex.getClass().getName() + ": " + ex.getMessage());
         } finally {
             try {
                 if (resultado != null) {
@@ -240,6 +243,72 @@ public class ContatosDao {
             }
         }
         return contatos;
+    }
+    
+    public static List<Contato> pesquisaTipoEnderco(Contato contato, TipoEndereco tipoEndereco) {
+    
+        listContato = new ArrayList<>();
+        listEndereco = new ArrayList<>();
+        
+        String sql
+                = "SELECT * FROM contatos c "
+                + "LEFT JOIN enderecos e ON e.idContato = c.idContato "
+                + "LEFT JOIN tipoEnderecos t ON t.idTipoEndereco = e.idTipoEndereco "
+                + "WHERE c.idContato = ? AND e.idTipoEndereco = ?";
+
+        Connection db = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+
+        try {
+            db = ConnectionFactory.abre(Config.BANCO_DE_DADOS);
+            if (db != null) {
+                stmt = db.prepareStatement(sql);
+                stmt.setInt(1, contato.getIdContato());
+                stmt.setInt(2, tipoEndereco.getIdTipoEndereco());
+                rs = stmt.executeQuery();
+                while (rs.next()) {
+                    
+                    // CONTATO
+                    Contato rstContato = new Contato();
+                    rstContato.setIdContato(rs.getInt("idContato"));
+                    rstContato.setNome(rs.getString("nome"));
+                    rstContato.setSobrenome(rs.getString("sobrenome"));
+                    rstContato.setNomeSobrenomeFonetico(rs.getString("NomeSobrenomeFonetico"));
+                    rstContato.setDataCriacao(rs.getTimestamp("dataCriacao"));
+                    rstContato.setDataUltimaAtualizacao(rs.getTimestamp("dataUltimaAtualizacao"));
+                    rstContato.setAtivo(rs.getBoolean("ativo"));
+                    
+                    // ENDEREÇOS                    
+                    rstContato.setIdEndereco(rs.getInt("idEndereco"));
+                    rstContato.setEndereco(rs.getString("endereco"));
+                    rstContato.setBairro(rs.getString("bairro"));
+                    rstContato.setCidade(rs.getString("cidade"));
+                    rstContato.setEstado(rs.getString("estado"));
+                    rstContato.setCep(rs.getString("cep"));
+                    rstContato.setPais(rs.getString("pais"));
+                    rstContato.setIdTipoEndereco(rs.getInt("idTipoEndereco"));
+                    listEndereco.add(rstContato);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ContatosDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                ConnectionFactory.fecha(db);
+            } catch (SQLException e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            }
+        }
+        return listContato;
     }
 
     public static List<Contato> pesquisaID(int id) {

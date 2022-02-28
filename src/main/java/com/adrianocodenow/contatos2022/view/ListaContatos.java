@@ -32,10 +32,10 @@ public class ListaContatos extends javax.swing.JFrame {
     private List<Contato> listContato;
 
     private Endereco endereco = new Endereco();
-    private List<Endereco> listEndereco;
+    private List<Endereco> listEndereco = new ArrayList<>();
     // TIPO DE ENDEREÇO
     private TipoEndereco tipoEndereco;
-    private List<TipoEndereco> listEnderecotipo;
+    private List<TipoEndereco> listTipoEndereco;
 
     // TIPO DE TELEFONE
     private TipoTelefone tipoTelefone;
@@ -45,17 +45,17 @@ public class ListaContatos extends javax.swing.JFrame {
      * Creates new form ListaContatos
      */
     public ListaContatos() {
-        CriaTabelas.criaBancoDeDados();
-
+        //CriaTabelas.criaBancoDeDados();
         initComponents();
         lblMensagem.setText("");
         desativaCampos();
         limpaTodosCampos();
-        loadList2();
-        if (lstContatos.getSelectedIndex() == -1) {
-            loadListaTiposEnderecos();
-            loadListaTiposTelefones();
-        }
+
+        // CONTATO
+        loadContato();
+
+        // TIPO ENDEREÇO
+        //loadTipoEnderco();
     }
 
     /**
@@ -243,22 +243,9 @@ public class ListaContatos extends javax.swing.JFrame {
         scrpTiposEnderecos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         lstTiposEnderecos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lstTiposEnderecos.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                lstTiposEnderecosMouseDragged(evt);
-            }
-        });
         lstTiposEnderecos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lstTiposEnderecosMouseClicked(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                lstTiposEnderecosMouseReleased(evt);
-            }
-        });
-        lstTiposEnderecos.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                lstTiposEnderecosKeyReleased(evt);
             }
         });
         scrpTiposEnderecos.setViewportView(lstTiposEnderecos);
@@ -830,7 +817,7 @@ public class ListaContatos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lstContatosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstContatosKeyReleased
-        if (!listContato.isEmpty()) {
+        if (listContato != null && !listContato.isEmpty()) {
             contato = listContato.get(lstContatos.getSelectedIndex());
 
             edtNome.setText(contato.getNome());
@@ -841,13 +828,15 @@ public class ListaContatos extends javax.swing.JFrame {
     }//GEN-LAST:event_lstContatosKeyReleased
 
     private void lstContatosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstContatosMouseClicked
-        if (!listContato.isEmpty()) {
+        if (listContato.size()>0) {
+
             contato = listContato.get(lstContatos.getSelectedIndex());
 
+            ativaNomeSobrenome();
             edtNome.setText(contato.getNome());
             edtSobrenome.setText(contato.getSobrenome());
 
-            evento = Evento.UPDATECONTATO;
+            loadTipoEnderco();
         }
     }//GEN-LAST:event_lstContatosMouseClicked
 
@@ -864,12 +853,7 @@ public class ListaContatos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDelActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        // TODO add your handling code here:
-        limpaCamposContatos();
-        edtNome.setEnabled(true);
-        edtNome.requestFocus();
-        edtSobrenome.setEnabled(true);
-        contato = null;
+        ativaNomeSobrenome();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
@@ -915,6 +899,7 @@ public class ListaContatos extends javax.swing.JFrame {
                 break;
         }
         desativaOKCancel();
+        desativaNomeSobrenome();
     }//GEN-LAST:event_btnOKActionPerformed
 
     private void edtNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtNomeKeyReleased
@@ -930,42 +915,32 @@ public class ListaContatos extends javax.swing.JFrame {
         cancel();
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    private void lstTiposEnderecosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lstTiposEnderecosKeyReleased
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_lstTiposEnderecosKeyReleased
-
     private void lstTiposEnderecosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTiposEnderecosMouseClicked
-        tipoEndereco = listEnderecotipo.get(lstTiposEnderecos.getSelectedIndex());
-
+        if (!listTipoEndereco.isEmpty()) {
+            tipoEndereco = listTipoEndereco.get(lstTiposEnderecos.getSelectedIndex());
+            listEndereco = EnderecoDao.buscaContato(contato, tipoEndereco);
+            loadEndereco();
+        }
     }//GEN-LAST:event_lstTiposEnderecosMouseClicked
 
-    private void lstTiposEnderecosMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTiposEnderecosMouseDragged
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_lstTiposEnderecosMouseDragged
-
-    private void lstTiposEnderecosMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lstTiposEnderecosMouseReleased
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_lstTiposEnderecosMouseReleased
-
     private void btnAddAddressActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAddressActionPerformed
-        // TODO add your handling code here:
-        comando = "INSERTADDRESS";
-        edtEndereco.setText("");
-        edtBairro.setText("");
-        edtCidade.setText("");
-        edtEstado.setText("");
-        edtPais.setText("");
-        edtCEP.setText("");
-        lstTiposEnderecos.clearSelection();
-        loadListaTiposEnderecos();
+        if (contato == null) {
+            JOptionPane.showMessageDialog(rootPane, "Escolha um contato na lista!");
+            return;
+        }
+        if (tipoEndereco == null) {
+            JOptionPane.showMessageDialog(rootPane, "Escolha um tipo de endereço na lista!");
+            return;
+        }
+        ativaEndereco();
     }//GEN-LAST:event_btnAddAddressActionPerformed
 
     private void edtEnderecoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtEnderecoKeyReleased
-        // TODO add your handling code here:
-        atualizaBotao();
+        if (listEndereco.isEmpty()) {
+            ativaOKCancel(Evento.ADDENDERECO, "Clique OK para adicionar endereço!");
+        } else {
+            ativaOKCancel(Evento.UPDATEENDERECO, "Clique OK para atualizar endereço!");
+        }
     }//GEN-LAST:event_edtEnderecoKeyReleased
 
     private void btnDelAddrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelAddrActionPerformed
@@ -1160,12 +1135,9 @@ public class ListaContatos extends javax.swing.JFrame {
     }//GEN-LAST:event_lblAddTipoEnderecoMouseEntered
 
     private void lblAddTipoEnderecoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddTipoEnderecoMouseClicked
+        ativaOKCancel(Evento.ADDTIPOENDERECO, "Adicionar tipo de endereço!");
         edtTipoEndereco.setVisible(true);
         edtTipoEndereco.requestFocus();
-        if (comando.equals("")) {
-            edtTipoEndereco.setText("");
-            ativaOKCancel(Evento.ADDTIPOENDERECO, "");
-        }
     }//GEN-LAST:event_lblAddTipoEnderecoMouseClicked
 
     private void lblDelTipoEnderecoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDelTipoEnderecoMouseEntered
@@ -1310,11 +1282,10 @@ public class ListaContatos extends javax.swing.JFrame {
     private void isUpdateContato() {
         if (contato == null) {
             ativaOKCancel(Evento.ADDCONTATO, "Clique OK para adicionar contato!");
-        } else if (!contato.getNome().equalsIgnoreCase(edtNome.getText().trim())
-                || contato.getSobrenome().equalsIgnoreCase(edtSobrenome.getText().trim())) {
+        }
+        if (!contato.getNome().equalsIgnoreCase(edtNome.getText().trim())
+                || !contato.getSobrenome().equalsIgnoreCase(edtSobrenome.getText().trim())) {
             ativaOKCancel(Evento.UPDATECONTATO, "Clique OK para atualizar contato!");
-        } else {
-            ativaOKCancel(Evento.NULL, "");
         }
     }
 
@@ -1520,7 +1491,7 @@ public class ListaContatos extends javax.swing.JFrame {
 
     private String[] novaListaTipoEndereco() {
         List<TipoEndereco> tipoEndereco = TipoEnderecoDao.lista();
-        listEnderecotipo = tipoEndereco;
+        listTipoEndereco = tipoEndereco;
         List<String> listaTipoEndereco = new ArrayList<>();
         tiposEnderecosIndice.clear();
         for (TipoEndereco tipoEndereco1 : tipoEndereco) {
@@ -1547,54 +1518,46 @@ public class ListaContatos extends javax.swing.JFrame {
     }
 
     private void loadEndereco() {
-        if (!comando.equals("")
-                && !comando.equals("INSERTADDRESS")
-                && !comando.equals("DELETEADDRESSTYPE")
-                && !comando.equals("UPDATEADDRESSTYPE")) {
-            cancel();
-        }
-
-        if (lstTiposEnderecos.getSelectedIndex() != -1) {
-            lblMensagem.setText("");
-            indexTiposEnderecos = lstTiposEnderecos.getSelectedIndex();
-        } else {
-            indexTiposEnderecos = -1;
-        }
-        if (temEndereco
-                && !comando.equals("INSERTADDRESS")
-                && !comando.equals("DELETEADDRESSTYPE")
-                && !comando.equals("UPDATEADDRESSTYPE")) {
-            Endereco endereco = new Endereco();
-            try {
-                endereco = EnderecoDao.buscaID(enderecosIndice.get(lstTiposEnderecos.getSelectedIndex()));
-
-            } catch (Exception e) {
-                System.out.println("Parei");
-            }
+        listEndereco = EnderecoDao.buscaContato(contato, tipoEndereco);
+        if (listEndereco.size()>0) {
+            ativaEndereco();            
             edtEndereco.setText(endereco.getEndereco());
             edtBairro.setText(endereco.getBairro());
             edtCidade.setText(endereco.getCidade());
             edtEstado.setText(endereco.getEstado());
             edtPais.setText(endereco.getPais());
             edtCEP.setText(endereco.getCep());
-            objEndereco = endereco;
+        }else{
+            desativaEndereco();
         }
+    }
+
+    private void loadTipoEnderco() {
+        listTipoEndereco = new ArrayList<>();
+        if (contato != null && tipoEndereco != null) {
+            listTipoEndereco = TipoEnderecoDao.pesquisaContato(contato, tipoEndereco);
+        } else {
+            listTipoEndereco = TipoEnderecoDao.pesquisaContato(contato);
+        }
+        if(listTipoEndereco.isEmpty()){
+            ativaEndereco();
+        }else{
+            desativaEndereco();
+        }
+        lstTiposEnderecos.setModel(TipoEnderecoDao.getModel());
     }
 
     private void loadContato() {
         listContato = ContatosDao.lista();
         lstContatos.setModel(ContatosDao.getModel());
-        if (!listContato.isEmpty()) {
+        if (listContato.size() > 0) {
             lstContatos.setSelectedIndex(0);
             contato = listContato.get(0);
-            edtNome.setEnabled(true);
-            edtNome.setText(contato.getNome());
-            edtSobrenome.setEnabled(true);
-            edtSobrenome.setText(contato.getSobrenome());
         }
     }
 
     private void loadTipoTelefone() {
+        tipoTelefoneDao.lista();
         lstTiposEnderecos.setModel(tipoTelefoneDao);
     }
 
@@ -1618,6 +1581,7 @@ public class ListaContatos extends javax.swing.JFrame {
     private void ativaNomeSobrenome() {
         edtNome.setEnabled(true);
         edtSobrenome.setEnabled(true);
+        edtNome.requestFocus();
     }
 
     private void ativaEndereco() {
@@ -1628,7 +1592,24 @@ public class ListaContatos extends javax.swing.JFrame {
         edtEstado.setEnabled(true);
         edtPais.setEnabled(true);
         edtTipoEndereco.setEnabled(true);
-        lstTiposEnderecos.setEnabled(true);
+        ativaOKCancel(Evento.ADDENDERECO, "Adicionar novo endereço!");
+    }
+    private void desativaEndereco() {
+        edtEndereco.setText("");
+        edtEndereco.setEnabled(false);
+        edtBairro.setText("");
+        edtBairro.setEnabled(false);
+        edtCEP.setText("");
+        edtCEP.setEnabled(false);
+        edtCidade.setEnabled(false);
+        edtCidade.setText("");        
+        edtEstado.setEnabled(false);
+        edtEstado.setText("");
+        edtPais.setEnabled(false);
+        edtPais.setText("");
+        edtTipoEndereco.setEnabled(false); 
+        edtTipoEndereco.setText("");
+        ativaOKCancel(Evento.NULL, "");
     }
 
     private void ativaTelefone() {
@@ -1657,17 +1638,10 @@ public class ListaContatos extends javax.swing.JFrame {
 
     private void desativaNomeSobrenome() {
         edtNome.setEnabled(false);
+        edtNome.setText("");
         edtSobrenome.setEnabled(false);
-    }
-
-    private void desativaEndereco() {
-        edtBairro.setEnabled(false);
-        edtCEP.setEnabled(false);
-        edtCidade.setEnabled(false);
-        edtEndereco.setEnabled(false);
-        edtEstado.setEnabled(false);
-        edtPais.setEnabled(false);
-    }
+        edtSobrenome.setText("");
+    }    
 
     private void desativaTelefone() {
         edtTelefone.setEnabled(false);
@@ -1675,14 +1649,8 @@ public class ListaContatos extends javax.swing.JFrame {
         lstTelefones.setEnabled(false);
     }
 
-    private void limpaCamposContatos() {
-
-        edtNome.setText("");
-        edtSobrenome.setText("");
-    }
-
     private void limpaTodosCampos() {
-        limpaCamposContatos();
+        desativaNomeSobrenome();
         edtBairro.setText("");
         edtCEP.setText("");
         edtCidade.setText("");
@@ -1739,36 +1707,29 @@ public class ListaContatos extends javax.swing.JFrame {
     }
 
     private void insereContato() {
-        if (!edtNome.getText().isEmpty() || !edtSobrenome.getText().isEmpty()) {
+        if (!edtNome.getText().trim().isEmpty() && edtNome.getText().trim().length() > 2 && edtSobrenome.getText().trim().isEmpty() && edtSobrenome.getText().trim().length() > 2) {
             if (ContatoCtrl.insere(edtNome.getText(), edtSobrenome.getText())) {
                 JOptionPane.showMessageDialog(rootPane, "Contato salvo com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 loadContato();
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Erro ao adicionar novo contato!", "Aviso", JOptionPane.ERROR_MESSAGE);
             }
-        }else{
+        } else {
             JOptionPane.showMessageDialog(rootPane, "Digite o nome e sobrenome do novo contato!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
     private void atualizaContato() {
-        if (!edtNome.getText().isEmpty() || !edtSobrenome.getText().isEmpty()) {
-
-            btnOK.setEnabled(false);
-            btnCancel.setEnabled(false);
-            lblMensagem.setText("");
-
-            if (ContatoCtrl.altera(
-                    contatosIndice.get(lstContatos.getSelectedIndex()),
-                    edtNome.getText(),
-                    edtSobrenome.getText())) {
+        if (contato != null && !edtNome.getText().isEmpty() || !edtSobrenome.getText().isEmpty()) {
+            contato.setNome(edtNome.getText().trim());
+            contato.setSobrenome(edtSobrenome.getText().trim());
+            if (ContatosDao.altera(contato)) {
                 JOptionPane.showMessageDialog(rootPane, "Contato atualizado com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Erro ao atualizado contato!", "Aviso", JOptionPane.ERROR_MESSAGE);
             }
-            limpaCamposContatos();
-            loadList2();
-            comando = "";
+            desativaNomeSobrenome();
+            loadContato();
         }
     }
 
@@ -1782,7 +1743,7 @@ public class ListaContatos extends javax.swing.JFrame {
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Erro ao atualizado contato!", "Aviso", JOptionPane.ERROR_MESSAGE);
             }
-            limpaCamposContatos();
+            desativaNomeSobrenome();
             loadList2();
             btnOK.setEnabled(false);
             btnCancel.setEnabled(false);
@@ -1791,47 +1752,31 @@ public class ListaContatos extends javax.swing.JFrame {
     }
 
     private void deletaContato() {
-        if (!edtNome.getText().isEmpty() || !edtSobrenome.getText().isEmpty()) {
-            if (ContatoCtrl.deleta(contatosIndice.get(lstContatos.getSelectedIndex()))) {
-                JOptionPane.showMessageDialog(rootPane, "Contato deletado com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Erro ao deleta contato!", "Aviso", JOptionPane.ERROR_MESSAGE);
+        if (contato != null) {
+            if (ContatosDao.deleta(contato.getIdContato())) {
+                JOptionPane.showMessageDialog(rootPane, String.format("Contato %s foi apagado com sucesso!", contato.getNome()));
+                loadContato();
             }
-            limpaCamposContatos();
-            loadList2();
-            comando = "";
-            btnOK.setEnabled(false);
-            btnCancel.setEnabled(false);
-            lblMensagem.setText("");
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Selecione um contato para apagar!");
         }
     }
 
     private void insereEndereco() {
-        if (comando.equals("INSERTADDRESS") && lstTiposEnderecos.getSelectedIndex() != -1) {
-            if (!edtEndereco.getText().isEmpty()) {
-                Endereco endereco = new Endereco();
-                endereco.setEndereco(edtEndereco.getText());
-                endereco.setBairro(edtBairro.getText());
-                endereco.setCidade(edtCidade.getText());
-                endereco.setEstado(edtEstado.getText());
-                endereco.setCep(edtCEP.getText());
-                endereco.setPais(edtPais.getText());
-                endereco.setIdContato(contatosIndice.get(lstContatos.getSelectedIndex()));
-                endereco.setIdTipoEndereco(tiposEnderecosIndice.get(lstTiposEnderecos.getSelectedIndex()));
-                if (EnderecoDao.insere(endereco)) {
-                    JOptionPane.showMessageDialog(rootPane, "Endereço adicionado com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Erro ao adiciona endereço", "Aviso", JOptionPane.ERROR_MESSAGE);
-                }
-                comando = "";
-                btnOK.setEnabled(false);
-                btnCancel.setEnabled(false);
-                loadContato();
-            }
-        } else if (lstTiposEnderecos.getSelectedIndex() == -1) {
-            lblMensagem.setText("Selecione um tipo de endereço.");
+        endereco = new Endereco();
+        endereco.setEndereco(edtEndereco.getText());
+        endereco.setBairro(edtBairro.getText());
+        endereco.setCidade(edtCidade.getText());
+        endereco.setEstado(edtEstado.getText());
+        endereco.setCep(edtCEP.getText());
+        endereco.setPais(edtPais.getText());
+        endereco.setIdContato(contato.getIdContato());
+        endereco.setIdTipoEndereco(tipoEndereco.getIdTipoEndereco());
+        if (EnderecoDao.insere(endereco)) {
+            JOptionPane.showMessageDialog(rootPane, "Endereço adicionado com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao adiciona endereço", "Aviso", JOptionPane.ERROR_MESSAGE);
         }
-
     }
 
     private void deletaEndereco() {

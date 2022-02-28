@@ -6,7 +6,7 @@ import java.util.Date;
  *
  * @author apereira
  */
-public class Contato {
+public class Contato extends Endereco{
 
     private int idContato;
     private String nome;

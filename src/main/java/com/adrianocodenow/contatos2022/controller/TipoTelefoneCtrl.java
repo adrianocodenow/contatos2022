@@ -28,7 +28,7 @@ public class TipoTelefoneCtrl {
 
     public static String[] lista() {
         ArrayList<String> tipoTelefoneList = new ArrayList<String>();
-        for (TipoTelefone tipoTelefone : TipoTelefoneDao.lista()) {
+        for (TipoTelefone tipoTelefone : new TipoTelefoneDao().lista()) {
             tipoTelefoneList.add(tipoTelefone.getTipoTelefone());
         }
         String[] retorno = tipoTelefoneList.toArray(new String[tipoTelefoneList.size()]);
@@ -36,7 +36,7 @@ public class TipoTelefoneCtrl {
     }
     public static ArrayList<Integer> indice() {
         ArrayList<Integer> tipoTelefoneList = new ArrayList<Integer>();
-        for (TipoTelefone tipoTelefone : TipoTelefoneDao.lista()) {
+        for (TipoTelefone tipoTelefone : new TipoTelefoneDao().lista()) {
             tipoTelefoneList.add(tipoTelefone.getIdTipoTelefone());
         }
         

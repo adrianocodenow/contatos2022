@@ -89,7 +89,7 @@ public class CriaTabelas {
             tipoEndereco.setTipoEndereco("Trabalho");
             TipoEnderecoDao.insere(tipoEndereco);
         }
-        if (TipoTelefoneDao.lista().isEmpty()) {
+        if (new TipoTelefoneDao().lista().isEmpty()) {
             TipoTelefone tipoTelefone = new TipoTelefone();
             tipoTelefone.setTipoTelefone("Celular");
             TipoTelefoneDao.insere(tipoTelefone);

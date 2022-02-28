@@ -2,7 +2,9 @@ package com.adrianocodenow.contatos2022.dao;
 
 import com.adrianocodenow.contatos2022.controller.Config;
 import com.adrianocodenow.contatos2022.factory.ConnectionFactory;
+import com.adrianocodenow.contatos2022.model.Contato;
 import com.adrianocodenow.contatos2022.model.Endereco;
+import com.adrianocodenow.contatos2022.model.TipoEndereco;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,6 +20,8 @@ import java.util.logging.Logger;
  * @author apereira
  */
 public class EnderecoDao {
+
+    public static List<Endereco> listEndereco;
 
     public static boolean insere(Endereco objEndereco) {
         String sql
@@ -347,6 +351,59 @@ public class EnderecoDao {
         return retorno;
     }
 
+    public static List<Endereco> buscaContato(Contato contato, TipoEndereco tipoEndereco) {
+        listEndereco = new ArrayList<>();
+        String sql
+                = "SELECT * FROM contatos c "
+                + "LEFT JOIN enderecos e ON e.idContato = c.idContato "
+                + "LEFT JOIN tipoEnderecos t ON t.idTipoEndereco = e.idTipoEndereco "
+                + "WHERE c.idContato = ? AND e.idTipoEndereco = ?";
+        Connection db = null;
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+        try {
+            db = ConnectionFactory.abre(Config.BANCO_DE_DADOS);
+            if (db != null) {
+                stmt = db.prepareStatement(sql);
+                stmt.setInt(1, contato.getIdContato());
+                stmt.setInt(2, tipoEndereco.getIdTipoEndereco());
+                resultado = stmt.executeQuery();
+                if (resultado.next()) {
+                    Endereco rstEndereco = new Endereco();
+                    rstEndereco.setIdEndereco(resultado.getInt("idEndereco"));
+                    rstEndereco.setEndereco(resultado.getString("endereco"));
+                    rstEndereco.setBairro(resultado.getString("bairro"));
+                    rstEndereco.setCidade(resultado.getString("cidade"));
+                    rstEndereco.setEstado(resultado.getString("estado"));
+                    rstEndereco.setCep(resultado.getString("cep"));
+                    rstEndereco.setPais(resultado.getString("pais"));
+                    rstEndereco.setIdTipoEndereco(resultado.getInt("idTipoEndereco"));
+                    rstEndereco.setIdContato(resultado.getInt("idContato"));
+                    if (rstEndereco.getIdEndereco() > 0) {
+                        listEndereco.add(rstEndereco);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ContatosDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                if (resultado != null) {
+                    resultado.close();
+                }
+                if (stmt != null) {
+                    stmt.close();
+                }
+                ConnectionFactory.fecha(db);
+            } catch (SQLException e) {
+                System.err.println(e.getClass().getName() + ": " + e.getMessage());
+            }
+        }
+        return listEndereco;
+    }
+
     public static List<Endereco> listaIDContato(int id) {
         String sql
                 = "SELECT * FROM enderecos WHERE idContato = ?";
@@ -478,4 +535,5 @@ public class EnderecoDao {
         }
 
     }
+
 }

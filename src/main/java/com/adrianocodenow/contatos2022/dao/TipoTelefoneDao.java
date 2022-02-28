@@ -12,12 +12,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 
 /**
  *
  * @author apereira
  */
-public class TipoTelefoneDao {
+public class TipoTelefoneDao extends DefaultListModel<String>{    
+    
+    private static List<TipoTelefone> listTipoTelefone = new ArrayList<>();
+    private TipoTelefone tipoTelefone;
+
+    public TipoTelefoneDao() {        
+    }
+    
+    @Override
+    public int getSize() {
+        return listTipoTelefone.size();
+    }
+
+     @Override
+    public String get(int index) {
+        return listTipoTelefone.get(index).getTipoTelefone();
+    }
+
+    
 
     public static boolean insere(TipoTelefone objTipoTelefone) {
         String sql = "INSERT INTO tipoTelefones(tipoTelefone) VALUES(?)";
@@ -116,11 +135,9 @@ public class TipoTelefoneDao {
         return retorno;
     }
 
-    public static List<TipoTelefone> pesquisa(String busca) {
+    public List<TipoTelefone> pesquisa(String busca) {
         String sql
                 = "SELECT * FROM tipoTelefones WHERE tipoTelefone LIKE ?";
-        List<TipoTelefone> tipoTelefones = new ArrayList<TipoTelefone>();
-
         Connection db = null;
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -134,7 +151,7 @@ public class TipoTelefoneDao {
                     TipoTelefone rstTipoTelefone = new TipoTelefone();
                     rstTipoTelefone.setIdTipoTelefone(resultado.getInt("idTipoTelefone"));
                     rstTipoTelefone.setTipoTelefone(resultado.getString("tipoTelefone"));
-                    tipoTelefones.add(rstTipoTelefone);
+                    listTipoTelefone.add(rstTipoTelefone);
                 }
             }
         } catch (SQLException e) {
@@ -154,14 +171,12 @@ public class TipoTelefoneDao {
                 System.err.println(e.getClass().getName() + ": " + e.getMessage());
             }
         }
-        return tipoTelefones;
+        return listTipoTelefone;
     }
 
-    public static List<TipoTelefone> pesquisaID(int id) {
+    public List<TipoTelefone> pesquisaID(int id) {
         String sql
                 = "SELECT * FROM tipoTelefones WHERE idTipoTelefone = ?";
-        List<TipoTelefone> tipoTelefones = new ArrayList<TipoTelefone>();
-
         Connection db = null;
         PreparedStatement stmt = null;
         ResultSet resultado = null;
@@ -175,7 +190,7 @@ public class TipoTelefoneDao {
                     TipoTelefone rstTipoTelefone = new TipoTelefone();
                     rstTipoTelefone.setIdTipoTelefone(resultado.getInt("idTipoTelefone"));
                     rstTipoTelefone.setTipoTelefone(resultado.getString("tipoTelefone"));
-                    tipoTelefones.add(rstTipoTelefone);
+                    listTipoTelefone.add(rstTipoTelefone);
                 }
             }
         } catch (SQLException e) {
@@ -195,54 +210,13 @@ public class TipoTelefoneDao {
                 System.err.println(e.getClass().getName() + ": " + e.getMessage());
             }
         }
-        return tipoTelefones;
-    }
-
-    public static TipoTelefone buscaID(int id) {
-        String sql
-                = "SELECT * FROM tipoTelefones WHERE idTipoTelefone = ?";
-        TipoTelefone retorno = null;
-
-        Connection db = null;
-        PreparedStatement stmt = null;
-        ResultSet resultado = null;
-        try {
-            db = ConnectionFactory.abre(Config.BANCO_DE_DADOS);
-            if (db != null) {
-                stmt = db.prepareStatement(sql);
-                stmt.setInt(1, id);
-                resultado = stmt.executeQuery();
-                if (resultado.next()) {
-                    TipoTelefone rstTipoTelefone = new TipoTelefone();
-                    rstTipoTelefone.setIdTipoTelefone(resultado.getInt("idTipoTelefone"));
-                    rstTipoTelefone.setTipoTelefone(resultado.getString("tipoTelefone"));
-                    retorno = rstTipoTelefone;
-                }
-            }
-        } catch (SQLException e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(TipoTelefoneDao.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                if (resultado != null) {
-                    resultado.close();
-                }
-                if (stmt != null) {
-                    stmt.close();
-                }
-                ConnectionFactory.fecha(db);
-            } catch (SQLException e) {
-                System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            }
-        }
-        return retorno;
+        return listTipoTelefone;
     }
 
     public static List<TipoTelefone> lista() {
+        listTipoTelefone = new ArrayList<>();
         String sql
                 = "SELECT * FROM tipoTelefones";
-        List<TipoTelefone> tipoTelefones = new ArrayList<TipoTelefone>();
 
         Connection db = null;
         PreparedStatement stmt = null;
@@ -256,7 +230,7 @@ public class TipoTelefoneDao {
                     TipoTelefone rstTipoTelefone = new TipoTelefone();
                     rstTipoTelefone.setIdTipoTelefone(resultado.getInt("idTipoTelefone"));
                     rstTipoTelefone.setTipoTelefone(resultado.getString("tipoTelefone"));
-                    tipoTelefones.add(rstTipoTelefone);
+                    listTipoTelefone.add(rstTipoTelefone);
                 }
             }
         } catch (SQLException e) {
@@ -276,10 +250,11 @@ public class TipoTelefoneDao {
                 System.err.println(e.getClass().getName() + ": " + e.getMessage());
             }
         }
-        return tipoTelefones;
+        return listTipoTelefone;
     }
 
-    public static void main(String[] args) {
+    /*
+    public void main(String[] args) {
         TipoTelefone tipoTelefone = new TipoTelefone();
         tipoTelefone.setTipoTelefone("Star Tac");
         if (insere(tipoTelefone)) {
@@ -287,7 +262,7 @@ public class TipoTelefoneDao {
         } else {
             System.out.println("Erro na Inclusão do Tipo Telefone");
         }
-        for (TipoTelefone retorno : pesquisaID(14)) {
+        for (TipoTelefone retorno : buscaID(14)) {
             TipoTelefone tipoTelefone1 = retorno;
             tipoTelefone1.setTipoTelefone("Motorola");
             if (altera(tipoTelefone1)) {
@@ -321,5 +296,7 @@ public class TipoTelefoneDao {
             System.out.println("Erro na Exclusão do Tipo Telefone");
         }
 
-    }
+    }*/    
+
+   
 }

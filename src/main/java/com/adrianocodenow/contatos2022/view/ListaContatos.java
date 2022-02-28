@@ -1,7 +1,6 @@
 package com.adrianocodenow.contatos2022.view;
 
 import com.adrianocodenow.contatos2022.controller.ContatoCtrl;
-import com.adrianocodenow.contatos2022.controller.StrNormalize;
 import com.adrianocodenow.contatos2022.controller.TelefoneCtrl;
 import com.adrianocodenow.contatos2022.controller.TipoTelefoneCtrl;
 import com.adrianocodenow.contatos2022.dao.ContatosDao;
@@ -12,10 +11,8 @@ import com.adrianocodenow.contatos2022.dao.TipoEnderecoDao;
 import com.adrianocodenow.contatos2022.dao.TipoTelefoneDao;
 import com.adrianocodenow.contatos2022.model.Contato;
 import com.adrianocodenow.contatos2022.model.Endereco;
-import com.adrianocodenow.contatos2022.model.Telefone;
 import com.adrianocodenow.contatos2022.model.TipoEndereco;
 import com.adrianocodenow.contatos2022.model.TipoTelefone;
-import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,8 +34,12 @@ public class ListaContatos extends javax.swing.JFrame {
     private Endereco endereco = new Endereco();
     private List<Endereco> listEndereco;
     // TIPO DE ENDEREÇO
-    private List<TipoEndereco> listEnderecotipo;
     private TipoEndereco tipoEndereco;
+    private List<TipoEndereco> listEnderecotipo;
+
+    // TIPO DE TELEFONE
+    private TipoTelefone tipoTelefone;
+    private TipoTelefoneDao tipoTelefoneDao = new TipoTelefoneDao();
 
     /**
      * Creates new form ListaContatos
@@ -186,6 +187,7 @@ public class ListaContatos extends javax.swing.JFrame {
         edtNome.setText("jTextField1");
         edtNome.setMaximumSize(new java.awt.Dimension(351, 30));
         edtNome.setMinimumSize(new java.awt.Dimension(351, 30));
+        edtNome.setNextFocusableComponent(edtSobrenome);
         edtNome.setPreferredSize(new java.awt.Dimension(330, 30));
         edtNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -241,11 +243,6 @@ public class ListaContatos extends javax.swing.JFrame {
         scrpTiposEnderecos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         lstTiposEnderecos.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lstTiposEnderecos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         lstTiposEnderecos.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 lstTiposEnderecosMouseDragged(evt);
@@ -376,7 +373,7 @@ public class ListaContatos extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(edtTipoTelefone)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblAddTipoTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -398,7 +395,7 @@ public class ListaContatos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(edtTipoTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrpTiposTelefones, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                .addComponent(scrpTiposTelefones, javax.swing.GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -636,6 +633,8 @@ public class ListaContatos extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         btnAdd.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnAdd.setText("+");
         btnAdd.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -652,6 +651,7 @@ public class ListaContatos extends javax.swing.JFrame {
                 btnAddActionPerformed(evt);
             }
         });
+        jPanel6.add(btnAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 64, 64));
 
         btnDel.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         btnDel.setText("-");
@@ -669,6 +669,7 @@ public class ListaContatos extends javax.swing.JFrame {
                 btnDelActionPerformed(evt);
             }
         });
+        jPanel6.add(btnDel, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, 64, 64));
 
         btnAddAddress.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         btnAddAddress.setText("+ End");
@@ -686,6 +687,7 @@ public class ListaContatos extends javax.swing.JFrame {
                 btnAddAddressActionPerformed(evt);
             }
         });
+        jPanel6.add(btnAddAddress, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 64, 64));
 
         btnDelAddr.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         btnDelAddr.setText("- End");
@@ -703,6 +705,7 @@ public class ListaContatos extends javax.swing.JFrame {
                 btnDelAddrActionPerformed(evt);
             }
         });
+        jPanel6.add(btnDelAddr, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 64, 64));
 
         btnAddPhone.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         btnAddPhone.setText("+ Tel");
@@ -715,6 +718,7 @@ public class ListaContatos extends javax.swing.JFrame {
                 btnAddPhoneMouseExited(evt);
             }
         });
+        jPanel6.add(btnAddPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 64, 64));
 
         btnDelPhone.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         btnDelPhone.setText("- Tel");
@@ -727,6 +731,7 @@ public class ListaContatos extends javax.swing.JFrame {
                 btnDelPhoneMouseExited(evt);
             }
         });
+        jPanel6.add(btnDelPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 10, 64, 64));
 
         btnSearch.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         btnSearch.setText("?");
@@ -739,6 +744,7 @@ public class ListaContatos extends javax.swing.JFrame {
                 btnSearchMouseExited(evt);
             }
         });
+        jPanel6.add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 64, 64));
 
         btnCancel.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         btnCancel.setText("X");
@@ -757,6 +763,7 @@ public class ListaContatos extends javax.swing.JFrame {
                 btnCancelActionPerformed(evt);
             }
         });
+        jPanel6.add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 10, 64, 64));
 
         btnOK.setFont(new java.awt.Font("Arial", 0, 11)); // NOI18N
         btnOK.setText("OK");
@@ -775,63 +782,15 @@ public class ListaContatos extends javax.swing.JFrame {
                 btnOKActionPerformed(evt);
             }
         });
+        jPanel6.add(btnOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 12, 64, 64));
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel4.setText("MENSAGEM");
+        jPanel6.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(652, 11, -1, -1));
 
         lblMensagem.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         lblMensagem.setText("LINHA DE MENSAGEM");
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAddAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDelAddr, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAddPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnDelPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(lblMensagem, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnDel, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnAddAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnDelAddr, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnAddPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnDelPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnOK, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblMensagem, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel4))
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
+        jPanel6.add(lblMensagem, new org.netbeans.lib.awtextra.AbsoluteConstraints(652, 28, 250, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -853,7 +812,7 @@ public class ListaContatos extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(6, 6, 6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -901,8 +860,7 @@ public class ListaContatos extends javax.swing.JFrame {
     }//GEN-LAST:event_lstContatosMouseDragged
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
-        evento = Evento.DELCONTATO;
-        lblMensagem.setText("Confirma a deleção do contato?");
+        ativaOKCancel(Evento.DELCONTATO, "Confirma a deleção do contato?");
     }//GEN-LAST:event_btnDelActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
@@ -911,7 +869,7 @@ public class ListaContatos extends javax.swing.JFrame {
         edtNome.setEnabled(true);
         edtNome.requestFocus();
         edtSobrenome.setEnabled(true);
-        ativaOKCancel("INSERT", "");
+        contato = null;
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOKActionPerformed
@@ -956,6 +914,7 @@ public class ListaContatos extends javax.swing.JFrame {
                 }
                 break;
         }
+        desativaOKCancel();
     }//GEN-LAST:event_btnOKActionPerformed
 
     private void edtNomeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtNomeKeyReleased
@@ -1011,7 +970,7 @@ public class ListaContatos extends javax.swing.JFrame {
 
     private void btnDelAddrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelAddrActionPerformed
         // TODO add your handling code here:
-        ativaOKCancel("DELETEADDRESS", "Confirma a deleção do endereco?");
+        ativaOKCancel(Evento.DELENDERECO, "Confirma a deleção do endereco?");
     }//GEN-LAST:event_btnDelAddrActionPerformed
 
     private void edtBairroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtBairroKeyReleased
@@ -1048,7 +1007,7 @@ public class ListaContatos extends javax.swing.JFrame {
             scrpTiposTelefones.setSize(340, 177);
             scrpTiposTelefones.setLocation(300, 540);
             loadListaTiposTelefones();
-            ativaOKCancel("INSERTPHONETYPE", "");
+            ativaOKCancel(Evento.ADDTIPOTELEFONE, "");
 
         }
     }//GEN-LAST:event_lblAddTipoTelefoneMouseReleased
@@ -1059,9 +1018,9 @@ public class ListaContatos extends javax.swing.JFrame {
             loadListaTiposTelefones();
             if (indexTiposTelefones != -1) {
                 lstTiposTelefones.setSelectedIndex(indexTiposTelefones);
-                ativaOKCancel("DELETEPHONETYPEPHONE", "");
+                ativaOKCancel(Evento.DELTIPOTELEFONE, "");
             } else {
-                ativaOKCancel("DELETEPHONETYPEPHONE", "Selecione o Tipo de Telefone, para deletar!");
+                ativaOKCancel(Evento.DELTIPOTELEFONE, "Selecione o Tipo de Telefone, para deletar!");
             }
         }
     }//GEN-LAST:event_lblDelTipoTelefoneMouseReleased
@@ -1205,7 +1164,7 @@ public class ListaContatos extends javax.swing.JFrame {
         edtTipoEndereco.requestFocus();
         if (comando.equals("")) {
             edtTipoEndereco.setText("");
-            ativaOKCancel("INSERTADDRESSTYPE", "");
+            ativaOKCancel(Evento.ADDTIPOENDERECO, "");
         }
     }//GEN-LAST:event_lblAddTipoEnderecoMouseClicked
 
@@ -1233,7 +1192,7 @@ public class ListaContatos extends javax.swing.JFrame {
 
     private void lblEditTipoEnderecoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditTipoEnderecoMouseClicked
         if (tipoEndereco != null) {
-            ativaOKCancel("UPDATEADDRESSTYPE", "Alterar tipo de endereço");
+            ativaOKCancel(Evento.UPDATETIPOENDERECO, "Alterar tipo de endereço");
             edtTipoEndereco.setVisible(true);
             edtTipoEndereco.setText(tipoEndereco.getTipoEndereco());
             edtTipoEndereco.requestFocus();
@@ -1348,20 +1307,43 @@ public class ListaContatos extends javax.swing.JFrame {
     private static Integer indexTiposTelefones = -1;
     private static Endereco objEndereco = new Endereco();
 
+    private void isUpdateContato() {
+        if (contato == null) {
+            ativaOKCancel(Evento.ADDCONTATO, "Clique OK para adicionar contato!");
+        } else if (!contato.getNome().equalsIgnoreCase(edtNome.getText().trim())
+                || contato.getSobrenome().equalsIgnoreCase(edtSobrenome.getText().trim())) {
+            ativaOKCancel(Evento.UPDATECONTATO, "Clique OK para atualizar contato!");
+        } else {
+            ativaOKCancel(Evento.NULL, "");
+        }
+    }
+
     private static enum Evento {
         ADDCONTATO, DELCONTATO, UPDATECONTATO,
         ADDENDERECO, DELENDERECO, UPDATEENDERECO,
         ADDTELEFONE, DELTELEFONE, UPDATETELEFONE,
         ADDTIPOENDERECO, DELTIPOENDERECO, UPDATETIPOENDERECO,
         ADDTIPOTELEFONE, DELTIPOTELEFONE, UPDATETIPOTELEFONE,
-        CLKCONTATO, CLKTIPOENDERECO, CLKTIPOTELEFONE, CLKTELEFONE
+        CLKCONTATO, CLKTIPOENDERECO, CLKTIPOTELEFONE, CLKTELEFONE,
+        NULL
     };
 
-    private void ativaOKCancel(String comando, String mensagem) {
-        this.comando = comando;
+    private void ativaOKCancel(Evento evento, String mensagem) {
         lblMensagem.setText(mensagem);
         btnOK.setEnabled(true);
         btnCancel.setEnabled(true);
+        this.evento = evento;
+    }
+
+    private void desativaOKCancel() {
+        contato = null;
+        tipoEndereco = null;
+        endereco = null;
+
+        lblMensagem.setText("");
+        btnOK.setEnabled(false);
+        btnCancel.setEnabled(false);
+        this.evento = Evento.NULL;
     }
 
     private void cancel() {
@@ -1602,14 +1584,18 @@ public class ListaContatos extends javax.swing.JFrame {
     private void loadContato() {
         listContato = ContatosDao.lista();
         lstContatos.setModel(ContatosDao.getModel());
-        if(!listContato.isEmpty()){
+        if (!listContato.isEmpty()) {
             lstContatos.setSelectedIndex(0);
             contato = listContato.get(0);
             edtNome.setEnabled(true);
             edtNome.setText(contato.getNome());
             edtSobrenome.setEnabled(true);
-            edtSobrenome.setText(contato.getSobrenome());            
-        }        
+            edtSobrenome.setText(contato.getSobrenome());
+        }
+    }
+
+    private void loadTipoTelefone() {
+        lstTiposEnderecos.setModel(tipoTelefoneDao);
     }
 
     private void ativaCampos() {
@@ -1753,30 +1739,25 @@ public class ListaContatos extends javax.swing.JFrame {
     }
 
     private void insereContato() {
-        if (comando.equals("INSERT")) {
-            if (!edtNome.getText().isEmpty() || !edtSobrenome.getText().isEmpty()) {
-                if (ContatoCtrl.insere(edtNome.getText(), edtSobrenome.getText())) {
-                    JOptionPane.showMessageDialog(rootPane, "Contato salvo com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Erro ao adicionar novo contato!", "Aviso", JOptionPane.ERROR_MESSAGE);
-                }
+        if (!edtNome.getText().isEmpty() || !edtSobrenome.getText().isEmpty()) {
+            if (ContatoCtrl.insere(edtNome.getText(), edtSobrenome.getText())) {
+                JOptionPane.showMessageDialog(rootPane, "Contato salvo com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                loadContato();
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Erro ao adicionar novo contato!", "Aviso", JOptionPane.ERROR_MESSAGE);
             }
-            limpaCamposContatos();
-            loadList2();
-            comando = "";
-            btnOK.setEnabled(false);
-            btnCancel.setEnabled(false);
-            lblMensagem.setText("");
+        }else{
+            JOptionPane.showMessageDialog(rootPane, "Digite o nome e sobrenome do novo contato!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         }
     }
 
     private void atualizaContato() {
         if (!edtNome.getText().isEmpty() || !edtSobrenome.getText().isEmpty()) {
-            
+
             btnOK.setEnabled(false);
             btnCancel.setEnabled(false);
             lblMensagem.setText("");
-            
+
             if (ContatoCtrl.altera(
                     contatosIndice.get(lstContatos.getSelectedIndex()),
                     edtNome.getText(),
@@ -1786,7 +1767,7 @@ public class ListaContatos extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane, "Erro ao atualizado contato!", "Aviso", JOptionPane.ERROR_MESSAGE);
             }
             limpaCamposContatos();
-            loadList2();            
+            loadList2();
             comando = "";
         }
     }
@@ -1955,7 +1936,7 @@ public class ListaContatos extends javax.swing.JFrame {
                 : !lstContatos.getSelectedValue().equals(edtNome.getText() + " " + edtSobrenome.getText()))) {
             if (!edtNome.getText().isEmpty() || !edtSobrenome.getText().isEmpty()) {
                 if (comando.equals("")) {
-                    ativaOKCancel("UPDATE", "Pressione OK para Atualizar");
+                    ativaOKCancel(Evento.NULL, "Pressione OK para Atualizar");
                 }
             }
         } else if (comando.equals("UPDATE")) {
@@ -1970,7 +1951,7 @@ public class ListaContatos extends javax.swing.JFrame {
                 || !edtCEP.getText().equals(objEndereco.getCep())) {
             if (!edtEndereco.getText().isEmpty()) {
                 if (comando.equals("")) {
-                    ativaOKCancel("UPDATEADDRESS", "Pressione OK para Atualizar");
+                    ativaOKCancel(Evento.UPDATEENDERECO, "Pressione OK para Atualizar");
                 }
             }
         } else if (comando.equals("UPDATEADDRESS")) {
@@ -1989,18 +1970,6 @@ public class ListaContatos extends javax.swing.JFrame {
         if (comando.equals("")) {
             lstTelefones.setSelectedIndex(lstTiposTelefones.getSelectedIndex());
             indexTiposTelefones = lstTiposTelefones.getSelectedIndex();
-        }
-    }
-
-    private void isUpdateContato() {
-        if (contato != null && !contato.getNome().equalsIgnoreCase(edtNome.getText()) || !contato.getSobrenome().equalsIgnoreCase(edtSobrenome.getText())) {
-            lblMensagem.setText("Pressione OK para Atualizar");
-            btnCancel.setEnabled(true);
-            btnOK.setEnabled(true);
-        } else {
-            lblMensagem.setText("");
-            btnCancel.setEnabled(false);
-            btnOK.setEnabled(false);
         }
     }
 

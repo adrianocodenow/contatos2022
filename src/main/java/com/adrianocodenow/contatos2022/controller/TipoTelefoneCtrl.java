@@ -15,11 +15,13 @@ import java.util.List;
  */
 public class TipoTelefoneCtrl {
 
-    public static String[] listaTipoTelefones(List<Integer> listaID) {
+    public static TipoTelefoneDao tipoTelefoneDao = new TipoTelefoneDao();
+    
+    public static String[] listaTipoTelefones(List<Integer> listaID) {        
         ArrayList<String> tipoTelefoneList = new ArrayList<String>();
         for (Integer idTipoTelefone : listaID) {
             TipoTelefone tipoTelefone = new TipoTelefone();
-            tipoTelefone = TipoTelefoneDao.buscaID(idTipoTelefone);
+            //tipoTelefone = tipoTelefoneDao.buscaID(idTipoTelefone);
             tipoTelefoneList.add(tipoTelefone.getTipoTelefone());
         }
         String[] retorno = tipoTelefoneList.toArray(new String[tipoTelefoneList.size()]);

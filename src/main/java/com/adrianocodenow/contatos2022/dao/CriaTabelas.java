@@ -37,8 +37,6 @@ public class CriaTabelas {
             }
         } catch (SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(CriaTabelas.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (stmt != null) {
@@ -85,9 +83,9 @@ public class CriaTabelas {
         if (TipoEnderecoDao.lista().isEmpty()) {
             TipoEndereco tipoEndereco = new TipoEndereco();
             tipoEndereco.setTipoEndereco("Residência");
-            TipoEnderecoDao.insere(tipoEndereco);
+            new TipoEnderecoDao().insere(tipoEndereco);
             tipoEndereco.setTipoEndereco("Trabalho");
-            TipoEnderecoDao.insere(tipoEndereco);
+            new TipoEnderecoDao().insere(tipoEndereco);
         }
         if (new TipoTelefoneDao().lista().isEmpty()) {
             TipoTelefone tipoTelefone = new TipoTelefone();
@@ -121,8 +119,6 @@ public class CriaTabelas {
             }
         } catch (SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ContatosDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (resultado != null) {

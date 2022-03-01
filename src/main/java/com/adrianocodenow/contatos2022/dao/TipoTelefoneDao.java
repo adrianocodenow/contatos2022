@@ -52,10 +52,6 @@ public class TipoTelefoneDao extends DefaultListModel<String>{
             }
         } catch (SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            retorno = false;
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(TipoTelefoneDao.class.getName()).log(Level.SEVERE, null, ex);
-            retorno = false;
         } finally {
             try {
                 if (stmt != null) {
@@ -86,10 +82,6 @@ public class TipoTelefoneDao extends DefaultListModel<String>{
             }
         } catch (SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            retorno = false;
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(TipoTelefoneDao.class.getName()).log(Level.SEVERE, null, ex);
-            retorno = false;
         } finally {
             try {
                 if (stmt != null) {
@@ -118,10 +110,6 @@ public class TipoTelefoneDao extends DefaultListModel<String>{
             }
         } catch (SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            retorno = false;
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(TipoTelefoneDao.class.getName()).log(Level.SEVERE, null, ex);
-            retorno = false;
         } finally {
             try {
                 if (stmt != null) {
@@ -156,8 +144,6 @@ public class TipoTelefoneDao extends DefaultListModel<String>{
             }
         } catch (SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(TipoTelefoneDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (resultado != null) {
@@ -195,8 +181,6 @@ public class TipoTelefoneDao extends DefaultListModel<String>{
             }
         } catch (SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(TipoTelefoneDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (resultado != null) {
@@ -235,8 +219,6 @@ public class TipoTelefoneDao extends DefaultListModel<String>{
             }
         } catch (SQLException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(TipoTelefoneDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 if (resultado != null) {

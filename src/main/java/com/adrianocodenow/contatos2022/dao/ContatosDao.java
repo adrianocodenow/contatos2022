@@ -7,6 +7,7 @@ import com.adrianocodenow.contatos2022.model.Contato;
 import com.adrianocodenow.contatos2022.model.Endereco;
 import com.adrianocodenow.contatos2022.model.Telefone;
 import com.adrianocodenow.contatos2022.model.TipoEndereco;
+import com.adrianocodenow.contatos2022.utils.Msg;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -14,10 +15,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.AbstractListModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ListModel;
 
@@ -26,249 +25,211 @@ import javax.swing.ListModel;
  * @author apereira
  */
 public class ContatosDao {
-    
-    public static List<Contato> listContato;
-    public static List<Endereco> listEndereco;
-    public static List<Telefone> lsitTelefone;
 
-    public static boolean insere(Contato objContato) {
-        String sql
+    private Connection db;
+    private PreparedStatement stm;
+    private ResultSet rs;
+    private String sql;
+
+    private List<Contato> listContato;
+    private List<Endereco> listEndereco;
+    private List<Telefone> listTelefone;
+
+    public ContatosDao() {
+        sql = "CREATE TABLE IF NOT EXISTS contatos (idContato INTEGER NOT NULL PRIMARY KEY, "
+                + "nome TEXT, "
+                + "sobrenome TEXT, "
+                + "nomeSobrenomeFonetico TEXT, "
+                + "dataCriacao DATE, "
+                + "dataUltimaAtualizacao DATE, "
+                + "ativo BOOLEAN )";
+        try{
+            db = ConnectionFactory.abre(Config.BANCO_DE_DADOS);
+            stm = db.prepareStatement(sql);
+            stm.execute();
+        }catch(SQLException e){
+            Msg.ServerErro("Erro ao criar a tabela contatos!", e);
+        }finally{
+            ConnectionFactory.fecha(db);
+        }
+    }
+    
+    
+
+    public int insere(Contato objContato) {
+        sql
                 = "INSERT INTO "
                 + "contatos(nome, sobrenome, nomeSobrenomeFonetico, "
                 + "dataCriacao, dataUltimaAtualizacao, ativo)"
                 + "VALUES(?, ?, ?, ?, ?, ?)";
 
-        Connection db = null;
-        PreparedStatement stmt = null;
-        Boolean retorno = true;
         try {
             db = ConnectionFactory.abre(Config.BANCO_DE_DADOS);
-            if (db != null) {
-                stmt = db.prepareStatement(sql);
-                stmt.setString(1, objContato.getNome());
-                stmt.setString(2, objContato.getSobrenome());
-                stmt.setString(3,
-                        StrNormalize.removeAcentos1(
-                                objContato.getNome() + " " + objContato.getSobrenome()
-                        ).toLowerCase()
-                );
-                stmt.setDate(4, new Date(objContato.getDataCriacao().getTime()));
-                stmt.setDate(5, new Date(objContato.getDataUltimaAtualizacao().getTime()));
-                stmt.setBoolean(6, objContato.isAtivo());
-                stmt.execute();
-            }
+            stm = db.prepareStatement(sql);
+            stm.setString(1, objContato.getNome());
+            stm.setString(2, objContato.getSobrenome());
+            stm.setString(3,
+                    StrNormalize.removeAcentos1(
+                            objContato.getNome() + " " + objContato.getSobrenome()
+                    ).toLowerCase()
+            );
+            stm.setDate(4, new Date(Calendar.getInstance().getTimeInMillis()));
+            stm.setDate(5, new Date(Calendar.getInstance().getTimeInMillis()));
+            stm.setBoolean(6, objContato.isAtivo());
+            return stm.executeUpdate();
         } catch (SQLException e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            retorno = false;
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ContatosDao.class.getName()).log(Level.SEVERE, null, ex);
-            retorno = false;
+            Msg.ServerErro("Erro ao inserir novo contato!!!", "insere(Contato objContato)", e);
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                ConnectionFactory.fecha(db);
-            } catch (SQLException e) {
-                System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            }
+            ConnectionFactory.fecha(db);
         }
-        return retorno;
+        return 0;
     }
 
-    public static boolean altera(Contato objContato) {
-        String sql
-                = "UPDATE contatos SET  "
+    public boolean altera(Contato objContato) {
+        sql = "UPDATE contatos SET  "
                 + "nome = ? , sobrenome = ? , nomeSobrenomeFonetico = ? , "
                 + "dataUltimaAtualizacao = ? , ativo = ?"
                 + "WHERE idContato = ?";
 
-        Connection db = null;
-        PreparedStatement stmt = null;
-        Boolean retorno = true;
         try {
             db = ConnectionFactory.abre(Config.BANCO_DE_DADOS);
             if (db != null) {
-                stmt = db.prepareStatement(sql);
-                stmt.setString(1, objContato.getNome());
-                stmt.setString(2, objContato.getSobrenome());
-                stmt.setString(3, objContato.getNome() + " " + objContato.getSobrenome());
-                stmt.setDate(4, new Date(objContato.getDataUltimaAtualizacao().getTime()));
-                stmt.setBoolean(5, objContato.isAtivo());
-                stmt.setInt(6, objContato.getIdContato());
-                stmt.execute();
+                stm = db.prepareStatement(sql);
+                stm.setString(1, objContato.getNome());
+                stm.setString(2, objContato.getSobrenome());
+                stm.setString(3, objContato.getNome() + " " + objContato.getSobrenome());
+                stm.setDate(4, new Date(objContato.getDataUltimaAtualizacao().getTime()));
+                stm.setBoolean(5, objContato.isAtivo());
+                stm.setInt(6, objContato.getIdContato());
+                if (stm.executeUpdate() > 0) {
+                    return true;
+                }
             }
         } catch (SQLException e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            retorno = false;
-        } catch (ClassNotFoundException ex) {
-            System.err.println(ex.getClass().getName() + ": " + ex.getMessage());
-            retorno = false;
+            Msg.ServerErro("Erro ao alterar o contato!", "altera(Contato objContato)", e);
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                ConnectionFactory.fecha(db);
-            } catch (SQLException e) {
-                System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            }
+            ConnectionFactory.fecha(db);
         }
-        return retorno;
+        return false;
     }
 
-    public static boolean deleta(int id) {
-        String sql = "DELETE FROM contatos WHERE idContato = ?";
-        Connection db = null;
-        PreparedStatement stmt = null;
-        Boolean retorno = true;
+    public boolean deleta(int id) {
+        sql = "DELETE FROM contatos WHERE idContato = ?";
         try {
             db = ConnectionFactory.abre(Config.BANCO_DE_DADOS);
-            if (db != null) {
-                stmt = db.prepareStatement(sql);
-                stmt.setInt(1, id);
-                stmt.execute();
+            stm = db.prepareStatement(sql);
+            stm.setInt(1, id);
+            if (stm.executeUpdate() > 0) {
+                return true;
             }
         } catch (SQLException e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            retorno = false;
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ContatosDao.class.getName()).log(Level.SEVERE, null, ex);
-            retorno = false;
+            Msg.ServerErro("Erro ao apagar o contato!", "deleta(int id)", e);
         } finally {
-            try {
-                if (stmt != null) {
-                    stmt.close();
-                }
-                ConnectionFactory.fecha(db);
-            } catch (SQLException e) {
-                System.err.println(e.getClass().getName() + ": " + e.getMessage());
-            }
+            ConnectionFactory.fecha(db);
         }
-        return retorno;
+        return false;
     }
 
-    public static List<Contato> lista() {
-        String sql
-                = "SELECT * FROM contatos "
+    public List<Contato> lista() {
+
+        listContato = new ArrayList<>();
+        sql = "SELECT * FROM contatos "
                 + "ORDER BY nomeSobrenomeFonetico ASC";
-        List<Contato> contatos = new ArrayList<Contato>();
-
-        Connection db = null;
-        PreparedStatement stmt = null;
-        ResultSet resultado = null;
-
         try {
             db = ConnectionFactory.abre(Config.BANCO_DE_DADOS);
-            if (db != null) {
-                stmt = db.prepareStatement(sql);
-                resultado = stmt.executeQuery();
-                while (resultado.next()) {
-                    Contato rstContato = new Contato();
-                    rstContato.setIdContato(resultado.getInt("idContato"));
-                    rstContato.setNome(resultado.getString("nome"));
-                    rstContato.setSobrenome(resultado.getString("sobrenome"));
-                    rstContato.setNomeSobrenomeFonetico(resultado.getString("NomeSobrenomeFonetico"));
-                    rstContato.setDataCriacao(resultado.getTimestamp("dataCriacao"));
-                    rstContato.setDataUltimaAtualizacao(resultado.getTimestamp("dataUltimaAtualizacao"));
-                    rstContato.setAtivo(resultado.getBoolean("ativo"));
-                    contatos.add(rstContato);
-                }
+            stm = db.prepareStatement(sql);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Contato rstContato = new Contato();
+                rstContato.setIdContato(rs.getInt("idContato"));
+                rstContato.setNome(rs.getString("nome"));
+                rstContato.setSobrenome(rs.getString("sobrenome"));
+                rstContato.setNomeSobrenomeFonetico(rs.getString("NomeSobrenomeFonetico"));
+                rstContato.setDataCriacao(rs.getTimestamp("dataCriacao"));
+                rstContato.setDataUltimaAtualizacao(rs.getTimestamp("dataUltimaAtualizacao"));
+                rstContato.setAtivo(rs.getBoolean("ativo"));
+                listContato.add(rstContato);
             }
+
         } catch (SQLException e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-        } catch (ClassNotFoundException ex) {
-            System.err.println(ex.getClass().getName() + ": " + ex.getMessage());
+            Msg.ServerErro("Erro ao lista todos os contatos!", "lista()", e);
         } finally {
             try {
-                if (resultado != null) {
-                    resultado.close();
+                if (rs != null) {
+                    rs.close();
                 }
-                if (stmt != null) {
-                    stmt.close();
+                if (stm != null) {
+                    stm.close();
                 }
                 ConnectionFactory.fecha(db);
             } catch (SQLException e) {
                 System.err.println(e.getClass().getName() + ": " + e.getMessage());
             }
         }
-        return contatos;
+        return listContato;
     }
 
-    public static List<Contato> pesquisa(String busca) {
-        String sql
+    public List<Contato> pesquisa(String busca) {
+        sql
                 = "SELECT * FROM contatos "
                 + "WHERE nome LIKE ? OR sobrenome LIKE ?"
                 + "ORDER BY nomeSobrenomeFonetico ASC";
-        List<Contato> contatos = new ArrayList<Contato>();
-
-        Connection db = null;
-        PreparedStatement stmt = null;
-        ResultSet resultado = null;
-
+        listContato = new ArrayList<>();
         try {
             db = ConnectionFactory.abre(Config.BANCO_DE_DADOS);
             if (db != null) {
-                stmt = db.prepareStatement(sql);
-                stmt.setString(1, "%" + busca + "%");
-                stmt.setString(2, "%" + busca + "%");
-                resultado = stmt.executeQuery();
-                while (resultado.next()) {
+                stm = db.prepareStatement(sql);
+                stm.setString(1, "%" + busca + "%");
+                stm.setString(2, "%" + busca + "%");
+                rs = stm.executeQuery();
+                while (rs.next()) {
                     Contato rstContato = new Contato();
-                    rstContato.setIdContato(resultado.getInt("idContato"));
-                    rstContato.setNome(resultado.getString("nome"));
-                    rstContato.setSobrenome(resultado.getString("sobrenome"));
-                    rstContato.setNomeSobrenomeFonetico(resultado.getString("NomeSobrenomeFonetico"));
-                    rstContato.setDataCriacao(resultado.getTimestamp("dataCriacao"));
-                    rstContato.setDataUltimaAtualizacao(resultado.getTimestamp("dataUltimaAtualizacao"));
-                    rstContato.setAtivo(resultado.getBoolean("ativo"));
-                    contatos.add(rstContato);
+                    rstContato.setIdContato(rs.getInt("idContato"));
+                    rstContato.setNome(rs.getString("nome"));
+                    rstContato.setSobrenome(rs.getString("sobrenome"));
+                    rstContato.setNomeSobrenomeFonetico(rs.getString("NomeSobrenomeFonetico"));
+                    rstContato.setDataCriacao(rs.getTimestamp("dataCriacao"));
+                    rstContato.setDataUltimaAtualizacao(rs.getTimestamp("dataUltimaAtualizacao"));
+                    rstContato.setAtivo(rs.getBoolean("ativo"));
+                    listContato.add(rstContato);
                 }
             }
         } catch (SQLException e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ContatosDao.class.getName()).log(Level.SEVERE, null, ex);
+            Msg.ServerErro("Erro ao pesquisar por nome ou sobrenome!", "pesquisa(String busca)", e);
         } finally {
             try {
-                if (resultado != null) {
-                    resultado.close();
+                if (rs != null) {
+                    rs.close();
                 }
-                if (stmt != null) {
-                    stmt.close();
+                if (stm != null) {
+                    stm.close();
                 }
                 ConnectionFactory.fecha(db);
             } catch (SQLException e) {
                 System.err.println(e.getClass().getName() + ": " + e.getMessage());
             }
         }
-        return contatos;
+        return listContato;
     }
-    
-    public static List<Contato> pesquisaTipoEnderco(Contato contato, TipoEndereco tipoEndereco) {
-    
+
+    public List<Contato> pesquisaTipoEnderco(Contato contato, TipoEndereco tipoEndereco) {
+
         listContato = new ArrayList<>();
         listEndereco = new ArrayList<>();
-        
-        String sql
-                = "SELECT * FROM contatos c "
+
+        sql = "SELECT * FROM contatos c "
                 + "LEFT JOIN enderecos e ON e.idContato = c.idContato "
                 + "LEFT JOIN tipoEnderecos t ON t.idTipoEndereco = e.idTipoEndereco "
                 + "WHERE c.idContato = ? AND e.idTipoEndereco = ?";
-
-        Connection db = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-
         try {
             db = ConnectionFactory.abre(Config.BANCO_DE_DADOS);
             if (db != null) {
-                stmt = db.prepareStatement(sql);
-                stmt.setInt(1, contato.getIdContato());
-                stmt.setInt(2, tipoEndereco.getIdTipoEndereco());
-                rs = stmt.executeQuery();
+                stm = db.prepareStatement(sql);
+                stm.setInt(1, contato.getIdContato());
+                stm.setInt(2, tipoEndereco.getIdTipoEndereco());
+                rs = stm.executeQuery();
                 while (rs.next()) {
-                    
+
                     // CONTATO
                     Contato rstContato = new Contato();
                     rstContato.setIdContato(rs.getInt("idContato"));
@@ -278,7 +239,7 @@ public class ContatosDao {
                     rstContato.setDataCriacao(rs.getTimestamp("dataCriacao"));
                     rstContato.setDataUltimaAtualizacao(rs.getTimestamp("dataUltimaAtualizacao"));
                     rstContato.setAtivo(rs.getBoolean("ativo"));
-                    
+
                     // ENDEREÇOS                    
                     rstContato.setIdEndereco(rs.getInt("idEndereco"));
                     rstContato.setEndereco(rs.getString("endereco"));
@@ -292,16 +253,14 @@ public class ContatosDao {
                 }
             }
         } catch (SQLException e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ContatosDao.class.getName()).log(Level.SEVERE, null, ex);
+            Msg.ServerErro("Erro ao pesquisar por tipo de endereço!", "pesquisaTipoEnderco", e);
         } finally {
             try {
                 if (rs != null) {
                     rs.close();
                 }
-                if (stmt != null) {
-                    stmt.close();
+                if (stm != null) {
+                    stm.close();
                 }
                 ConnectionFactory.fecha(db);
             } catch (SQLException e) {
@@ -311,102 +270,88 @@ public class ContatosDao {
         return listContato;
     }
 
-    public static List<Contato> pesquisaID(int id) {
+    public List<Contato> pesquisaID(int id) {
         String sql
                 = "SELECT * FROM contatos WHERE idContato = ?";
-        List<Contato> contatos = new ArrayList<Contato>();
-
-        Connection db = null;
-        PreparedStatement stmt = null;
-        ResultSet resultado = null;
-
+        listContato = new ArrayList<Contato>();
         try {
             db = ConnectionFactory.abre(Config.BANCO_DE_DADOS);
             if (db != null) {
-                stmt = db.prepareStatement(sql);
-                stmt.setInt(1, id);
-                resultado = stmt.executeQuery();
-                while (resultado.next()) {
+                stm = db.prepareStatement(sql);
+                stm.setInt(1, id);
+                rs = stm.executeQuery();
+                while (rs.next()) {
                     Contato rstContato = new Contato();
-                    rstContato.setIdContato(resultado.getInt("idContato"));
-                    rstContato.setNome(resultado.getString("nome"));
-                    rstContato.setSobrenome(resultado.getString("sobrenome"));
-                    rstContato.setNomeSobrenomeFonetico(resultado.getString("NomeSobrenomeFonetico"));
-                    rstContato.setDataCriacao(resultado.getTimestamp("dataCriacao"));
-                    rstContato.setDataUltimaAtualizacao(resultado.getTimestamp("dataUltimaAtualizacao"));
-                    rstContato.setAtivo(resultado.getBoolean("ativo"));
-                    contatos.add(rstContato);
+                    rstContato.setIdContato(rs.getInt("idContato"));
+                    rstContato.setNome(rs.getString("nome"));
+                    rstContato.setSobrenome(rs.getString("sobrenome"));
+                    rstContato.setNomeSobrenomeFonetico(rs.getString("NomeSobrenomeFonetico"));
+                    rstContato.setDataCriacao(rs.getTimestamp("dataCriacao"));
+                    rstContato.setDataUltimaAtualizacao(rs.getTimestamp("dataUltimaAtualizacao"));
+                    rstContato.setAtivo(rs.getBoolean("ativo"));
+                    listContato.add(rstContato);
                 }
             }
         } catch (SQLException e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ContatosDao.class.getName()).log(Level.SEVERE, null, ex);
+            Msg.ServerErro("Erro ao pesquisar por ID", "pesquisaID(int id)", e);
         } finally {
             try {
-                if (resultado != null) {
-                    resultado.close();
+                if (rs != null) {
+                    rs.close();
                 }
-                if (stmt != null) {
-                    stmt.close();
+                if (stm != null) {
+                    stm.close();
                 }
                 ConnectionFactory.fecha(db);
             } catch (SQLException e) {
                 System.err.println(e.getClass().getName() + ": " + e.getMessage());
             }
         }
-        return contatos;
+        return listContato;
     }
 
-    public static List<Contato> pesquisaFonetica(String busca) {
-        String sql
+    public List<Contato> pesquisaFonetica(String busca) {
+        sql
                 = "SELECT * FROM contatos WHERE NomeSobrenomeFonetico = ?"
                 + "ORDER BY nomeSobrenomeFonetico ASC";
-        List<Contato> contatos = new ArrayList<Contato>();
-
-        Connection db = null;
-        PreparedStatement stmt = null;
-        ResultSet resultado = null;
-
+        listContato = new ArrayList<Contato>();
         try {
             db = ConnectionFactory.abre(Config.BANCO_DE_DADOS);
             if (db != null) {
-                stmt = db.prepareStatement(sql);
-                stmt.setString(1, busca);
-                resultado = stmt.executeQuery();
-                while (resultado.next()) {
+                stm = db.prepareStatement(sql);
+                stm.setString(1, busca);
+                rs = stm.executeQuery();
+                while (rs.next()) {
                     Contato rstContato = new Contato();
-                    rstContato.setIdContato(resultado.getInt("idContato"));
-                    rstContato.setNome(resultado.getString("nome"));
-                    rstContato.setSobrenome(resultado.getString("sobrenome"));
-                    rstContato.setNomeSobrenomeFonetico(resultado.getString("NomeSobrenomeFonetico"));
-                    rstContato.setDataCriacao(resultado.getTimestamp("dataCriacao"));
-                    rstContato.setDataUltimaAtualizacao(resultado.getTimestamp("dataUltimaAtualizacao"));
-                    rstContato.setAtivo(resultado.getBoolean("ativo"));
-                    contatos.add(rstContato);
+                    rstContato.setIdContato(rs.getInt("idContato"));
+                    rstContato.setNome(rs.getString("nome"));
+                    rstContato.setSobrenome(rs.getString("sobrenome"));
+                    rstContato.setNomeSobrenomeFonetico(rs.getString("NomeSobrenomeFonetico"));
+                    rstContato.setDataCriacao(rs.getTimestamp("dataCriacao"));
+                    rstContato.setDataUltimaAtualizacao(rs.getTimestamp("dataUltimaAtualizacao"));
+                    rstContato.setAtivo(rs.getBoolean("ativo"));
+                    listContato.add(rstContato);
                 }
             }
         } catch (SQLException e) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage());
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ContatosDao.class.getName()).log(Level.SEVERE, null, ex);
+            Msg.ServerErro("Erro ao pesquisar por fonetica!", "pesquisaFonetica", e);
         } finally {
             try {
-                if (resultado != null) {
-                    resultado.close();
+                if (rs != null) {
+                    rs.close();
                 }
-                if (stmt != null) {
-                    stmt.close();
+                if (stm != null) {
+                    stm.close();
                 }
                 ConnectionFactory.fecha(db);
             } catch (SQLException e) {
                 System.err.println(e.getClass().getName() + ": " + e.getMessage());
             }
         }
-        return contatos;
+        return listContato;
     }
-    
-    public static ListModel<String> getModel(){
+
+    public ListModel<String> getModel() {
         return new DefaultListModel<String>() {
             @Override
             public int getSize() {
@@ -417,10 +362,10 @@ public class ContatosDao {
             public String getElementAt(int index) {
                 return lista().get(index).getNomeSobrenomeFonetico();
             }
-        };        
+        };
     }
 
-    public static void main(String[] args) {
+    public void main(String[] args) {
 
 //        Contato contato = new Contato();
 //        contato.setNome("Otavio");

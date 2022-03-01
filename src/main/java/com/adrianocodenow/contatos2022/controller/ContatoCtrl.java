@@ -19,48 +19,50 @@ import java.util.List;
  * @author apereira
  */
 public class ContatoCtrl {
+    
+    private static ContatosDao contatoDao = new ContatosDao();
 
-    public static boolean insere(String nome, String sobrenome) {
+    public static long insere(String nome, String sobrenome) {
         Contato contato = new Contato();
         contato.setNome(nome);
         contato.setSobrenome(sobrenome);
         contato.setDataCriacao(new java.util.Date());
         contato.setDataUltimaAtualizacao(contato.getDataCriacao());
         contato.setAtivo(true);
-        return ContatosDao.insere(contato);
+        return contatoDao.insere(contato);
     }
 
     public static boolean altera(int id, String nome, String sobrenome) {
-        for (Contato retorno : ContatosDao.pesquisaID(id)) {
+        for (Contato retorno : contatoDao.pesquisaID(id)) {
             retorno.setNome(nome);
             retorno.setSobrenome(sobrenome);
             retorno.setDataUltimaAtualizacao(new java.util.Date());;;
-            ContatosDao.altera(retorno);
+            contatoDao.altera(retorno);
         }
         return true;
     }
 
     public static boolean alteraGeral(String busca, String nome, String sobrenome) {
-        for (Contato retorno : ContatosDao.pesquisaFonetica(
+        for (Contato retorno : contatoDao.pesquisaFonetica(
                 StrNormalize.removeAcentos1(
                         StrNormalize.removeAcentos1(busca).toLowerCase()
                 ))) {
             retorno.setNome(nome);
             retorno.setSobrenome(sobrenome);
             retorno.setDataUltimaAtualizacao(new java.util.Date());;;
-            ContatosDao.altera(retorno);
+            contatoDao.altera(retorno);
         }
         return true;
     }
 
     public static boolean deleta(int id) {
-        ContatosDao.deleta(id);
+        contatoDao.deleta(id);
         return true;
     }
 
     public static String[] pesquisa() {
         ArrayList<String> nomesSobrenomes = new ArrayList<String>();
-        for (Contato contato : ContatosDao.lista()) {
+        for (Contato contato : contatoDao.lista()) {
             nomesSobrenomes.add(contato.getNome() + " " + contato.getSobrenome());
         }
         String[] retorno = nomesSobrenomes.toArray(new String[nomesSobrenomes.size()]);
@@ -68,7 +70,7 @@ public class ContatoCtrl {
     }
 
     public static List<Contato> pesquisaObj() {
-        return ContatosDao.lista();
+        return contatoDao.lista();
     }
 
     public static List<Contato> carregaContato(String nomesSobrenomes) {
@@ -76,7 +78,7 @@ public class ContatoCtrl {
 //        for (Contato contato : ContatosDao.pesquisaFonetica(nomesSobrenomes)) {
 //
 //        }
-        return ContatosDao.pesquisaFonetica(nomesSobrenomes);
+        return contatoDao.pesquisaFonetica(nomesSobrenomes);
     }
 
     public static List<Endereco> pesquisaEnderecoIdContato(int id) {
@@ -88,7 +90,7 @@ public class ContatoCtrl {
 
         for (int idTipoEndereco : idTipoEnderecos) {
             TipoEndereco tipoEndereco = new TipoEndereco();
-            tipoEndereco = TipoEnderecoDao.buscaID(idTipoEndereco);
+            tipoEndereco = new TipoEnderecoDao().buscaID(idTipoEndereco);
             if (!tipoEndereco.equals(null)) {
                 tipoEnderecoList.add(tipoEndereco.getTipoEndereco());
             }

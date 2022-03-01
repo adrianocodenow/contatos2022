@@ -225,6 +225,7 @@ public class TipoEnderecoDao {
         String sql
                 = "SELECT * FROM contatos c "
                 + "LEFT JOIN enderecos e ON e.idContato = c.idContato "
+                + "LEFT JOIN tipoEnderecos t ON t.idTipoEndereco = e.idTipoEndereco "
                 + "WHERE c.idContato = ? AND e.idTipoEndereco = ?";
 
         listTipoEndereco = new ArrayList<>();

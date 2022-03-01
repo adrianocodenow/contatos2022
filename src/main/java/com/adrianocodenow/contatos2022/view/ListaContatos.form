@@ -366,7 +366,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="edtTipoTelefone" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="scrpTiposTelefones" pref="80" max="32767" attributes="0"/>
+                  <Component id="scrpTiposTelefones" pref="82" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -413,7 +413,7 @@
             <Property name="text" type="java.lang.String" value="+"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblAddTipoTelefoneMouseReleased"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblAddTipoTelefoneMouseClicked"/>
           </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="edtTipoTelefone">
@@ -870,7 +870,6 @@
           </Properties>
           <Events>
             <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAddAddressMouseEntered"/>
-            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnAddAddressMouseExited"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddAddressActionPerformed"/>
           </Events>
           <Constraints>
@@ -1000,7 +999,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="570" y="12" width="64" height="64"/>
+              <AbsoluteConstraints x="570" y="10" width="64" height="64"/>
             </Constraint>
           </Constraints>
         </Component>

@@ -318,8 +318,8 @@ public class ListaContatos extends javax.swing.JFrame {
         lblAddTipoTelefone.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblAddTipoTelefone.setText("+");
         lblAddTipoTelefone.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                lblAddTipoTelefoneMouseReleased(evt);
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblAddTipoTelefoneMouseClicked(evt);
             }
         });
 
@@ -385,7 +385,7 @@ public class ListaContatos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(edtTipoTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrpTiposTelefones, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                .addComponent(scrpTiposTelefones, javax.swing.GroupLayout.DEFAULT_SIZE, 82, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -668,9 +668,6 @@ public class ListaContatos extends javax.swing.JFrame {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnAddAddressMouseEntered(evt);
             }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                btnAddAddressMouseExited(evt);
-            }
         });
         btnAddAddress.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -772,7 +769,7 @@ public class ListaContatos extends javax.swing.JFrame {
                 btnOKActionPerformed(evt);
             }
         });
-        jPanel6.add(btnOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 12, 64, 64));
+        jPanel6.add(btnOK, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 10, 64, 64));
 
         jLabel4.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel4.setText("MENSAGEM");
@@ -844,6 +841,7 @@ public class ListaContatos extends javax.swing.JFrame {
                 break;
             case ADDENDERECO:
                 insereEndereco();
+                loadTipoEnderco();
                 break;
             case UPDATEENDERECO:
                 atualizaEndereco();
@@ -897,6 +895,8 @@ public class ListaContatos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "Escolha um tipo de endereço na lista!");
             return;
         }
+        ativaOKCancel(Evento.ADDENDERECO, "Clique OK para adicionar endereço!");
+        endereco = null;
         ativaEndereco();
     }//GEN-LAST:event_btnAddAddressActionPerformed
 
@@ -928,20 +928,6 @@ public class ListaContatos extends javax.swing.JFrame {
     private void edtCEPKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edtCEPKeyReleased
         isUpdateEndereco();
     }//GEN-LAST:event_edtCEPKeyReleased
-
-    private void lblAddTipoTelefoneMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddTipoTelefoneMouseReleased
-        // TODO add your handling code here:
-        if (comando.equals("")) {
-            edtTipoTelefone.setText("");
-            edtTipoTelefone.setEnabled(true);
-            edtTipoTelefone.requestFocus();
-            scrpTiposTelefones.setSize(340, 177);
-            scrpTiposTelefones.setLocation(300, 540);
-            loadListaTiposTelefones();
-            ativaOKCancel(Evento.ADDTIPOTELEFONE, "");
-
-        }
-    }//GEN-LAST:event_lblAddTipoTelefoneMouseReleased
 
     private void lblDelTipoTelefoneMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblDelTipoTelefoneMouseReleased
         // TODO add your handling code here:
@@ -1029,10 +1015,6 @@ public class ListaContatos extends javax.swing.JFrame {
     private void btnAddAddressMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddAddressMouseEntered
         isFocus(btnAddAddress, true);
     }//GEN-LAST:event_btnAddAddressMouseEntered
-
-    private void btnAddAddressMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAddAddressMouseExited
-        isFocus(btnAddAddress, false);
-    }//GEN-LAST:event_btnAddAddressMouseExited
 
     private void btnDelAddrMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDelAddrMouseEntered
         isFocus(btnDelAddr, true);
@@ -1144,7 +1126,6 @@ public class ListaContatos extends javax.swing.JFrame {
         if (!listTipoEndereco.isEmpty()) {
             tipoEndereco = listTipoEndereco.get(lstTiposEnderecos.getSelectedIndex());
             loadEndereco();
-            isUpdateEndereco();
         }
     }//GEN-LAST:event_lstTiposEnderecosMouseClicked
 
@@ -1153,6 +1134,10 @@ public class ListaContatos extends javax.swing.JFrame {
             tipoEndereco = listTipoEnderecoCbox.get(cbTipoEndereco.getSelectedIndex());
         }
     }//GEN-LAST:event_cbTipoEnderecoActionPerformed
+
+    private void lblAddTipoTelefoneMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblAddTipoTelefoneMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lblAddTipoTelefoneMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1291,7 +1276,7 @@ public class ListaContatos extends javax.swing.JFrame {
         this.evento = evento;
     }
 
-    private void desativaOKCancel() {        
+    private void desativaOKCancel() {
         lblMensagem.setText("");
         btnOK.setEnabled(false);
         btnCancel.setEnabled(false);
@@ -1301,15 +1286,12 @@ public class ListaContatos extends javax.swing.JFrame {
     private void cancel() {
         btnCancel.setEnabled(false);
         btnOK.setEnabled(false);
-        comando = "";
         lblMensagem.setText("");
-        indexTiposEnderecos = -1;
-        indexTiposTelefones = -1;
+        contato = null;
+        tipoEndereco = null;
+        endereco = null;
         loadContato();
-        scrpTiposEnderecos.setLocation(300, 170);
-        scrpTiposEnderecos.setSize(340, 305);
-        scrpTiposTelefones.setLocation(300, 510);
-        scrpTiposTelefones.setSize(340, 210);
+        evento = Evento.NULL;
     }
 
     private void loadList() {
@@ -1546,7 +1528,6 @@ public class ListaContatos extends javax.swing.JFrame {
         edtEstado.setEnabled(true);
         edtPais.setEnabled(true);
         edtTipoEndereco.setEnabled(true);
-        ativaOKCancel(Evento.ADDENDERECO, "Adicionar novo endereço!");
     }
 
     private void desativaEndereco() {
@@ -1670,6 +1651,7 @@ public class ListaContatos extends javax.swing.JFrame {
             if ((idContato = contatoDao.insere(contato)) > 0) {
                 contato.setIdContato(idContato);
                 JOptionPane.showMessageDialog(rootPane, "Contato salvo com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                desativaNomeSobrenome();
                 loadContato();
             } else {
                 JOptionPane.showMessageDialog(rootPane, "Erro ao adicionar novo contato!", "Aviso", JOptionPane.ERROR_MESSAGE);
@@ -1722,18 +1704,19 @@ public class ListaContatos extends javax.swing.JFrame {
         }
     }
 
-    private void isUpdateEndereco(){
-        if(endereco!=null 
-                && !endereco.getEndereco().equalsIgnoreCase(edtEndereco.getText().trim())
-                || !endereco.getBairro().equalsIgnoreCase(edtBairro.getText().trim())
-                || !endereco.getCidade().equalsIgnoreCase(edtCidade.getText().trim())
-                || !endereco.getEstado().equalsIgnoreCase(edtEstado.getText().trim())
-                || !endereco.getPais().equalsIgnoreCase(edtPais.getText().trim())
-                || !endereco.getCep().equalsIgnoreCase(edtCEP.getText().trim())){
-            ativaOKCancel(Evento.UPDATEENDERECO, "Clique OK para atualizar endereço!!!");
+    private void isUpdateEndereco() {        
+        if (endereco != null) {
+            if (!endereco.getEndereco().equalsIgnoreCase(edtEndereco.getText().trim())
+                    || !endereco.getBairro().equalsIgnoreCase(edtBairro.getText().trim())
+                    || !endereco.getCidade().equalsIgnoreCase(edtCidade.getText().trim())
+                    || !endereco.getEstado().equalsIgnoreCase(edtEstado.getText().trim())
+                    || !endereco.getPais().equalsIgnoreCase(edtPais.getText().trim())
+                    || !endereco.getCep().equalsIgnoreCase(edtCEP.getText().trim())) {
+                ativaOKCancel(Evento.UPDATEENDERECO, "Clique OK para atualizar endereço!!!");
+            }
         }
     }
-    
+
     private void insereEndereco() {
         if (tipoEndereco == null || contato == null) {
             Msg.Aviso(rootPane, "Escolha um contato e o tipo de endereço!");
@@ -1766,16 +1749,16 @@ public class ListaContatos extends javax.swing.JFrame {
     }
 
     private void atualizaEndereco() {
-        if (endereco!=null) {
+        if (endereco != null) {
             endereco.setEndereco(edtEndereco.getText());
             endereco.setBairro(edtBairro.getText());
             endereco.setCidade(edtCidade.getText());
             endereco.setEstado(edtEstado.getText());
             endereco.setCep(edtCEP.getText());
             endereco.setPais(edtPais.getText());
-            if(enderecoDao.altera(endereco)){
+            if (enderecoDao.altera(endereco)) {
                 Msg.Aviso(rootPane, "Endereço atualizado com sucesso!!!");
-            }else{
+            } else {
                 Msg.Aviso(rootPane, "Erro ao atualizar endereço!!!");
             }
         }
